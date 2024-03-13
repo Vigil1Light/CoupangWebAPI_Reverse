@@ -39,7 +39,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.orderAssignStatus = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.statusText = new System.Windows.Forms.Label();
             this.orderPrepareStatus = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.pickupTime = new System.Windows.Forms.Label();
@@ -147,17 +147,18 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 140);
+            this.label1.Location = new System.Drawing.Point(24, 160);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 18);
             this.label1.TabIndex = 8;
             this.label1.Text = "주문접수";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // orderAssignStatus
             // 
             this.orderAssignStatus.AutoCheck = false;
             this.orderAssignStatus.AutoSize = true;
-            this.orderAssignStatus.Location = new System.Drawing.Point(81, 143);
+            this.orderAssignStatus.Location = new System.Drawing.Point(50, 143);
             this.orderAssignStatus.Name = "orderAssignStatus";
             this.orderAssignStatus.Size = new System.Drawing.Size(15, 14);
             this.orderAssignStatus.TabIndex = 9;
@@ -167,26 +168,27 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(97, 140);
+            this.label2.Location = new System.Drawing.Point(66, 140);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 18);
             this.label2.TabIndex = 10;
             this.label2.Text = "-------->";
             // 
-            // label3
+            // statusText
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(155, 140);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 18);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "조리중";
+            this.statusText.AutoSize = true;
+            this.statusText.Location = new System.Drawing.Point(110, 160);
+            this.statusText.Name = "statusText";
+            this.statusText.Size = new System.Drawing.Size(47, 18);
+            this.statusText.TabIndex = 11;
+            this.statusText.Text = "조리중";
+            this.statusText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // orderPrepareStatus
             // 
             this.orderPrepareStatus.AutoCheck = false;
             this.orderPrepareStatus.AutoSize = true;
-            this.orderPrepareStatus.Location = new System.Drawing.Point(202, 143);
+            this.orderPrepareStatus.Location = new System.Drawing.Point(126, 143);
             this.orderPrepareStatus.Name = "orderPrepareStatus";
             this.orderPrepareStatus.Size = new System.Drawing.Size(15, 14);
             this.orderPrepareStatus.TabIndex = 12;
@@ -196,7 +198,7 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(229, 141);
+            this.label4.Location = new System.Drawing.Point(229, 149);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 18);
             this.label4.TabIndex = 13;
@@ -207,7 +209,8 @@
             this.pickupTime.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pickupTime.AutoSize = true;
             this.pickupTime.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pickupTime.Location = new System.Drawing.Point(288, 134);
+            this.pickupTime.ForeColor = System.Drawing.Color.Green;
+            this.pickupTime.Location = new System.Drawing.Point(288, 142);
             this.pickupTime.Name = "pickupTime";
             this.pickupTime.Size = new System.Drawing.Size(73, 29);
             this.pickupTime.TabIndex = 14;
@@ -217,7 +220,7 @@
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(357, 141);
+            this.label6.Location = new System.Drawing.Point(357, 149);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(34, 18);
             this.label6.TabIndex = 15;
@@ -227,7 +230,7 @@
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(394, 141);
+            this.label7.Location = new System.Drawing.Point(394, 149);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(60, 18);
             this.label7.TabIndex = 16;
@@ -238,7 +241,7 @@
             this.remainingTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.remainingTime.AutoSize = true;
             this.remainingTime.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.remainingTime.Location = new System.Drawing.Point(451, 134);
+            this.remainingTime.Location = new System.Drawing.Point(451, 142);
             this.remainingTime.Name = "remainingTime";
             this.remainingTime.Size = new System.Drawing.Size(39, 29);
             this.remainingTime.TabIndex = 17;
@@ -248,7 +251,7 @@
             // 
             this.remainType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.remainType.AutoSize = true;
-            this.remainType.Location = new System.Drawing.Point(485, 140);
+            this.remainType.Location = new System.Drawing.Point(485, 148);
             this.remainType.Name = "remainType";
             this.remainType.Size = new System.Drawing.Size(51, 18);
             this.remainType.TabIndex = 18;
@@ -290,7 +293,7 @@
             this.Controls.Add(this.pickupTime);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.orderPrepareStatus);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.statusText);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.orderAssignStatus);
             this.Controls.Add(this.label1);
@@ -306,7 +309,7 @@
             this.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Order_Item";
-            this.Size = new System.Drawing.Size(568, 175);
+            this.Size = new System.Drawing.Size(568, 190);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -328,7 +331,7 @@
         internal System.Windows.Forms.Label remainType;
         internal System.Windows.Forms.Label label1;
         internal System.Windows.Forms.Label label2;
-        internal System.Windows.Forms.Label label3;
+        internal System.Windows.Forms.Label statusText;
         internal System.Windows.Forms.Label label4;
         internal System.Windows.Forms.Label label6;
         internal System.Windows.Forms.Label label7;

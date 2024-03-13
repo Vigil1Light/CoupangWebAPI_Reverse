@@ -245,23 +245,40 @@ namespace Coupang
                                     o_item.O_status.Text = x["status"] != null ? x["status"].ToString() : "...";
                                     o_item.O_orderServiceType.Text = x["orderServiceType"] != null ? x["orderServiceType"].ToString() : "...";
 
-                                    if (x["state"]["statusText"].ToString() == "Assigned") { o_item.orderAssignStatus.Checked = true; }
-                                    if (x["state"]["saveDelivery"].ToString() == "true") { o_item.orderPrepareStatus.Checked = true; }
+
+                                    o_item.remainingTime.Text = (Math.Abs(int.Parse(x["state"]["preparationRemainingTime"].ToString())) / 60).ToString();
+                                    if (x["state"]["statusText"].ToString() == "Assigned" || x["state"]["statusText"].ToString() == "Ready") 
+                                    { 
+                                        o_item.orderAssignStatus.Checked = true; 
+                                    }
+                                    if (x["state"]["statusText"].ToString() == "Ready") 
+                                    { 
+                                        o_item.orderPrepareStatus.Checked = true;
+                                        o_item.statusText.Text = "포장완료알림";
+                                        o_item.remainingTime.Text = "0";
+                                        o_item.button1.Enabled = false;
+                                    }
                                     o_item.pickupTime.Text = x["state"]["estimatedPickUpTime"].ToString();
                                     if(int.Parse(x["state"]["preparationRemainingTime"].ToString()) > 0)
                                     {
+                                        if(int.Parse(x["state"]["preparationRemainingTime"].ToString())/60 < 4)
+                                        {
+                                            o_item.remainingTime.ForeColor = Color.Red;
+                                        }
+                                        else o_item.remainType.ForeColor = Color.Black;
                                         o_item.remainType.Text = "분 남음";
-                                        o_item.remainType.ForeColor = Color.Black;
+                                        
                                     }
                                     else
                                     {
                                         o_item.remainType.Text = "분 지연됨";
                                         o_item.remainType.ForeColor = Color.Red;
                                     }
-                                    o_item.remainingTime.Text = (Math.Abs(int.Parse(x["state"]["preparationRemainingTime"].ToString()))/60).ToString();
 
                                     //o_item.Anchor = (AnchorStyles.Left | AnchorStyles.Right);
                                     o_item.Click += (ss, ee) => { Get_Order_Details(ss, ee, Store_ID, o_item.orderId); };
+                                    o_item.button1.Click += (ss, ee) => { Packaging_Complete_Notify(ss, ee, Store_ID, o_item.orderId); };
+                                    o_item.button2.Click += (ss, ee) => { CompleteDelivery(ss, ee, Store_ID, o_item.orderId); };
                                     switch (o_item.O_status.Text)
                                     {
                                         case "COMPLETED":
@@ -327,12 +344,64 @@ namespace Coupang
 
         }
 
+        private void CompleteDelivery(object ss, EventArgs ee, string store_ID, string orderId)
+        {
+            Thread th = new Thread(new ThreadStart(() =>
+            {
+                Task<IRestResponse> tx = Task.Run(() => Helper_Class.Send_Request($"https://pos-api.coupang.com/api/v1/stores/{store_ID}/orders/{orderId}/customer-pickup/", Method.POST, null, "{}"));
+                //Task<IRestResponse> tx = Getrestaurants().RunSynchronously();
+                tx.Wait();
+                if (!string.IsNullOrEmpty(tx.Result.Content))
+                {
+                    JToken o = Helper_Class.Json_Responce(tx.Result.Content.ToString());
+
+
+                    if (tx.Result.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        if (o.SelectToken("code").ToString() == "SUCCESS")
+                        {
+                            MessageBox.Show("Delivery completed successfully!");
+                            GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.PROCESSING, "2000-05-27" + "T00:00:00.000+02:00", "2025-05-27" + "T23:59:59.999+02:00");
+                        }
+                    }
+                }
+
+            }));
+            th.Start();
+        }
+
+        private void Packaging_Complete_Notify(object ss, EventArgs ee, string store_ID, string orderId)
+        {
+            Thread th = new Thread(new ThreadStart(() =>
+            {
+                Task<IRestResponse> tx = Task.Run(() => Helper_Class.Send_Request($"https://pos-api.coupang.com/api/v1/stores/{store_ID}/orders/{orderId}/ready/", Method.POST, null, "{}"));
+                //Task<IRestResponse> tx = Getrestaurants().RunSynchronously();
+                tx.Wait();
+                if (!string.IsNullOrEmpty(tx.Result.Content))
+                {
+                    JToken o = Helper_Class.Json_Responce(tx.Result.Content.ToString());
+
+
+                    if (tx.Result.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        if (o.SelectToken("code").ToString() == "SUCCESS")
+                        {
+                            MessageBox.Show("Successfully notified");
+                            GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.PROCESSING, "2000-05-27" + "T00:00:00.000+02:00", "2025-05-27" + "T23:59:59.999+02:00");
+                        }
+                    }
+                }
+
+            }));
+            th.Start();
+        }
+
         public void ShowAdditionalInfo(Order_Item item, bool state)
         {
             item.label1.Visible = state;
             item.orderAssignStatus.Visible = state;
             item.label2.Visible = state;
-            item.label3.Visible = state;
+            item.statusText.Visible = state;
             item.label4.Visible = state;
             item.label6.Visible = state;
             item.label7.Visible = state;

@@ -25,35 +25,35 @@
   },
   {
     "Name": "access-token",
-    "Value": "1e8fbe1f86390a1476c9968d35bb9a16115ca0db2ad867cfe5e756bd1649b0cc",
+    "Value": "d96facbf43e4d2052e30842a16ab85dac0c5f4538a9000332fff1284f601055a",
     "Path": "/",
     "Domain": "coupang.com",
     "Secure": true,
-    "Expires": "2024-04-12T14:11:04.7173411+08:00"
+    "Expires": "2024-04-12T16:24:54.9265302+08:00"
   },
   {
     "Name": "refresh-token",
-    "Value": "2917bed51f8b42a1694e84100a6eff4ed620e990710e7973a3ca6110101e343e",
+    "Value": "06ab64bd35d28c3d5407cea4d27e5b44f8cb14e9d85292704f6f8cbeb6470d69",
     "Path": "/",
     "Domain": "coupang.com",
     "Secure": true,
-    "Expires": "2024-04-12T14:11:04.7173411+08:00"
+    "Expires": "2024-04-12T16:24:54.9265302+08:00"
   },
   {
     "Name": "account-id",
-    "Value": "98692",
+    "Value": "89219",
     "Path": "/",
     "Domain": "coupang.com",
     "Secure": true,
-    "Expires": "2024-04-12T14:11:04.7173411+08:00"
+    "Expires": "2024-04-12T16:24:54.9265302+08:00"
   },
   {
     "Name": "store-id",
-    "Value": "218497",
+    "Value": "192569",
     "Path": "/",
     "Domain": "coupang.com",
     "Secure": true,
-    "Expires": "2024-04-12T14:11:06.0756787+08:00"
+    "Expires": "2024-04-12T16:24:56.4663809+08:00"
   },
   {
     "Name": "integrated-store-ids",
@@ -61,22 +61,14 @@
     "Path": "/",
     "Domain": "coupang.com",
     "Secure": true,
-    "Expires": "2024-04-12T14:11:06.0756787+08:00"
+    "Expires": "2024-04-12T16:24:56.4663809+08:00"
   },
   {
     "Name": "SESSION",
-    "Value": "NDIxYTQyZGItYjk4ZC00YTljLWI0OGItMzRhNjZhZjhhZTMw",
+    "Value": "YzNmYmY2OTktYzYwYi00ZjllLWIwZDEtOWY4ODBkY2I5NWRk",
     "Path": "/",
     "Domain": "coupang.com",
     "Secure": true,
     "Expires": "0001-01-01T00:00:00"
-  },
-  {
-    "Name": "__cf_bm",
-    "Value": "vHuMDQbyEz6PUuA89V17oDdRxrPWctTNYZ4SGJAjesM-1710309737-1.0.1.1-iZq1yWEjOSQHe4i2AFrA0stWci_hToDNGWiEpjU_FnJ7G8FDEdoSId_tFuA96mQL_oeY7C3a7vDYJ._TNrEpDg",
-    "Path": "/",
-    "Domain": ".coupang.com",
-    "Secure": true,
-    "Expires": "2024-03-13T14:32:17+08:00"
   }
 ]

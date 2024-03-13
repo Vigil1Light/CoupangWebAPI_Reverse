@@ -21,8 +21,8 @@ namespace Coupang
         {
             InitializeComponent();
 
-            username.Text = "6122253748";
-            password.Text = "abcd3186@";
+            username.Text = "01086078688";
+            password.Text = "@coupang1";
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
