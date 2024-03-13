@@ -1,0 +1,253 @@
+{
+   "code" : "SUCCESS",
+   "content" : {
+      "content" : [
+         {
+            "abTestKeyOptions" : [
+               {
+                  "testId" : 36635,
+                  "testOption" : "B"
+               },
+               {
+                  "testId" : 38594,
+                  "testOption" : "B"
+               },
+               {
+                  "testId" : 24804,
+                  "testOption" : "A"
+               },
+               {
+                  "testId" : 30843,
+                  "testOption" : "A"
+               },
+               {
+                  "testId" : 29652,
+                  "testOption" : "A"
+               },
+               {
+                  "testId" : 39007,
+                  "testOption" : "B"
+               },
+               {
+                  "testId" : 34874,
+                  "testOption" : "A"
+               },
+               {
+                  "testId" : 41842,
+                  "testOption" : "A"
+               },
+               {
+                  "testId" : 26748,
+                  "testOption" : "C"
+               },
+               {
+                  "testId" : 30487,
+                  "testOption" : "B"
+               },
+               {
+                  "testId" : 32829,
+                  "testOption" : "B"
+               },
+               {
+                  "testId" : 43210,
+                  "testOption" : "B"
+               }
+            ],
+            "abbrOrderId" : "2BRTR0",
+            "alcoholName" : null,
+            "alcoholNote" : null,
+            "andonStatusLevel" : "ANDON_NONE",
+            "canceledCoupangCash" : 0,
+            "canceledPaymentAmount" : 0,
+            "canceledPrice" : 0,
+            "cancelled" : false,
+            "cancelledItems" : [],
+            "cancelledReason" : null,
+            "coupangCash" : 0,
+            "courier" : null,
+            "courierAssigned" : null,
+            "courierSupplyStatusType" : null,
+            "customerName" : "",
+            "deliveryFee" : 0.0,
+            "destination" : null,
+            "discountDeliveryPrice" : 0,
+            "discountDishPrice" : 0,
+            "discountPrice" : 0,
+            "distanceFee" : 0.0,
+            "edpAssignInfo" : null,
+            "extraDeliveryInfo" : {
+               "deliveryFee" : 0,
+               "discountedDeliveryFee" : 0
+            },
+            "extraPaymentInfoDto" : {
+               "cashAmount" : 0,
+               "extraPayAmountInfo" : null
+            },
+            "hasAlcohol" : false,
+            "initialSalePrice" : 14000,
+            "items" : [
+               {
+                  "dishId" : "5894652",
+                  "isAlcohol" : false,
+                  "itemOptions" : [
+                     {
+                        "isAlcohol" : false,
+                        "optionItemId" : "5728111",
+                        "optionName" : "순한맛",
+                        "optionPrice" : 0.0,
+                        "optionQuantity" : 1
+                     },
+                     {
+                        "isAlcohol" : false,
+                        "optionItemId" : "5728287",
+                        "optionName" : "쌀떡",
+                        "optionPrice" : 0.0,
+                        "optionQuantity" : 1
+                     },
+                     {
+                        "isAlcohol" : false,
+                        "optionItemId" : "5728290",
+                        "optionName" : "떡을 많이요 (떡 8: 오뎅 2)",
+                        "optionPrice" : 0.0,
+                        "optionQuantity" : 1
+                     }
+                  ],
+                  "name" : "벼락떡볶이 Large",
+                  "orderItemId" : "924070027",
+                  "quantity" : 1,
+                  "unitSalePrice" : 14000.0
+               }
+            ],
+            "mlFoodPrepTime" : 12,
+            "noCourierAcceptTips" : [
+               {
+                  "bold" : false,
+                  "color" : "#22282E",
+                  "link" : null,
+                  "size" : 16,
+                  "strikeThrough" : null,
+                  "text" : "배달파트너를 "
+               },
+               {
+                  "bold" : true,
+                  "color" : "#22282E",
+                  "link" : null,
+                  "size" : 16,
+                  "strikeThrough" : null,
+                  "text" : "우선 배정 중"
+               },
+               {
+                  "bold" : false,
+                  "color" : "#22282E",
+                  "link" : null,
+                  "size" : 16,
+                  "strikeThrough" : null,
+                  "text" : "이며 기다리는 고객님께 늘어난 "
+               },
+               {
+                  "bold" : true,
+                  "color" : "#22282E",
+                  "link" : null,
+                  "size" : 16,
+                  "strikeThrough" : null,
+                  "text" : "배달 시간을 안내"
+               },
+               {
+                  "bold" : false,
+                  "color" : "#22282E",
+                  "link" : null,
+                  "size" : 16,
+                  "strikeThrough" : null,
+                  "text" : "했습니다."
+               }
+            ],
+            "note" : "[수저포크X] 테스트주문입니다. 조리하지마세요 ",
+            "orderId" : "710326637379457024",
+            "orderServiceType" : "PICKUP",
+            "orderTitle" : null,
+            "orderedAt" : {
+               "dateTime" : 1710294114600,
+               "elapsedSeconds" : 4558
+            },
+            "paymentAmount" : 0,
+            "paymentMethodType" : null,
+            "pickupOrderId" : 1,
+            "remainingCount" : 0,
+            "reviewRating" : 0,
+            "reviewed" : false,
+            "salePrice" : 14000,
+            "smallOrderFee" : 0.0,
+            "state" : {
+               "abuse" : false,
+               "courierNearByStore" : null,
+               "courierStatus" : null,
+               "delayCount" : 4,
+               "deliveryRemainingTime" : 0,
+               "estimatedDeliveryAssignMaxTime" : 0,
+               "estimatedDeliveryAssignMinTime" : 0,
+               "estimatedDeliveryTime" : null,
+               "estimatedPickUpTime" : "11:55",
+               "orderStatusText" : {
+                  "bold" : true,
+                  "color" : "#22282E",
+                  "link" : null,
+                  "size" : 16,
+                  "strikeThrough" : null,
+                  "text" : "메뉴 준비 중"
+               },
+               "pickUpRemainingTime" : 0,
+               "preparationRemainingTime" : -168,
+               "prepareFoodDuration" : 4320,
+               "saveDelivery" : false,
+               "showTargetPickupTime" : null,
+               "statusText" : "Assigned",
+               "statusValue" : "MERCHANT_ACCEPTED",
+               "targetPickupRemainingTime" : 0,
+               "targetPickupTime" : null,
+               "targetPickupTimeEnd" : null,
+               "targetPickupTimeStart" : null,
+               "waitingAcceptTime" : 0
+            },
+            "status" : "ACCEPTED",
+            "store" : {
+               "address" : "경기도 하남시 미사강변한강로342번길 19",
+               "addressDetail" : "1층102호",
+               "bizNo" : "733-26-00982",
+               "countryOriginText" : "떡볶이(고춧가루:국내산, 수입산) 닭볶이탕 순살 닭고기:수입산 주먹밥 쌀:국내산 돈까스:국내산 닭껍질튀김:국내산 새우튀김:수입산 삼겹살:수입산 차돌배기:수입산 쌀:국내산 누룽지:수입산 오징어:칠레산 닭껍질:국내산 돈까스, 순대:국내산 햄:국내산, 외국산 김치볶음밥(쌀:국내산, 고춧가루:중국산) 모듬튀김:국내산,수입산 새우튀김:베트남 대파, 양배추:국내산 참치:원양산",
+               "description" : "안녕하세요 벼락떡볶이 &닭도리탕 본점직영 입니다",
+               "id" : "192569",
+               "imagePaths" : [
+                  "/image/eats_api/cb2e/80b9dec0fd28fb255b756189995ab11c0bc2784b9d1d210053031c1a4467.jpg",
+                  "/image/eats_api/2d7e/46cdfb34146e3bfdfff981e69dcacd57d71a812fd97e47b3dfda9f94b1a9.jpg",
+                  "/image/eats_api/62f0/f08064835ba171ef6e888571bbae0719852f2fb7fec5dba2b8d9e3be3e92.jpg"
+               ],
+               "latitude" : 37.55981895350,
+               "longitude" : 127.20041766690,
+               "name" : "벼락떡볶이&닭볶이탕 본점직영 ",
+               "nextOpenAt" : null,
+               "openStatus" : null,
+               "reviewRating" : 4.90,
+               "storeModeDto" : {
+                  "abuseMode" : null,
+                  "abuseType" : null,
+                  "maxDelayCount" : 1,
+                  "maxPlusPrepareTime" : null,
+                  "operationMode" : "NORMAL",
+                  "prepareFoodDelayTime" : null
+               },
+               "telNo" : "0317927980",
+               "zipNo" : "12923"
+            },
+            "storeId" : "192569",
+            "storeName" : null,
+            "totalAmount" : 14000,
+            "viewType" : null
+         }
+      ],
+      "number" : 0,
+      "size" : 10,
+      "totalElements" : 1,
+      "totalPages" : 1
+   },
+   "message" : "성공하였습니다."
+}

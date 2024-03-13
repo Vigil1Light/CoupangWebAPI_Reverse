@@ -1,0 +1,82 @@
+[
+  {
+    "Name": "device-id",
+    "Value": "3f4cdd2f-66d9-4296-b867-5eff57ae6af8aaa",
+    "Path": "/",
+    "Domain": "coupang.com",
+    "Secure": false,
+    "Expires": "0001-01-01T00:00:00"
+  },
+  {
+    "Name": "version",
+    "Value": "1.8.4",
+    "Path": "/",
+    "Domain": "coupang.com",
+    "Secure": false,
+    "Expires": "0001-01-01T00:00:00"
+  },
+  {
+    "Name": "app-type",
+    "Value": "COUPANG_POS",
+    "Path": "/",
+    "Domain": "coupang.com",
+    "Secure": false,
+    "Expires": "0001-01-01T00:00:00"
+  },
+  {
+    "Name": "access-token",
+    "Value": "1e8fbe1f86390a1476c9968d35bb9a16115ca0db2ad867cfe5e756bd1649b0cc",
+    "Path": "/",
+    "Domain": "coupang.com",
+    "Secure": true,
+    "Expires": "2024-04-12T14:11:04.7173411+08:00"
+  },
+  {
+    "Name": "refresh-token",
+    "Value": "2917bed51f8b42a1694e84100a6eff4ed620e990710e7973a3ca6110101e343e",
+    "Path": "/",
+    "Domain": "coupang.com",
+    "Secure": true,
+    "Expires": "2024-04-12T14:11:04.7173411+08:00"
+  },
+  {
+    "Name": "account-id",
+    "Value": "98692",
+    "Path": "/",
+    "Domain": "coupang.com",
+    "Secure": true,
+    "Expires": "2024-04-12T14:11:04.7173411+08:00"
+  },
+  {
+    "Name": "store-id",
+    "Value": "218497",
+    "Path": "/",
+    "Domain": "coupang.com",
+    "Secure": true,
+    "Expires": "2024-04-12T14:11:06.0756787+08:00"
+  },
+  {
+    "Name": "integrated-store-ids",
+    "Value": "",
+    "Path": "/",
+    "Domain": "coupang.com",
+    "Secure": true,
+    "Expires": "2024-04-12T14:11:06.0756787+08:00"
+  },
+  {
+    "Name": "SESSION",
+    "Value": "NDIxYTQyZGItYjk4ZC00YTljLWI0OGItMzRhNjZhZjhhZTMw",
+    "Path": "/",
+    "Domain": "coupang.com",
+    "Secure": true,
+    "Expires": "0001-01-01T00:00:00"
+  },
+  {
+    "Name": "__cf_bm",
+    "Value": "vHuMDQbyEz6PUuA89V17oDdRxrPWctTNYZ4SGJAjesM-1710309737-1.0.1.1-iZq1yWEjOSQHe4i2AFrA0stWci_hToDNGWiEpjU_FnJ7G8FDEdoSId_tFuA96mQL_oeY7C3a7vDYJ._TNrEpDg",
+    "Path": "/",
+    "Domain": ".coupang.com",
+    "Secure": true,
+    "Expires": "2024-03-13T14:32:17+08:00"
+  }
+]
