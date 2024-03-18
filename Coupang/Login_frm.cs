@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -38,7 +39,7 @@ namespace Coupang
                 if (Cookies_Class.Cookies.GetCookies(new Uri ("https://pos-api.coupang.com"))["device-id"] == null)
                 {
                     Cookies_Class.Cookies.Add(new Cookie() { Domain = "coupang.com", Name = "device-id", Value = "3f4cdd2f-66d9-4296-b867-5eff57ae6af8aaa" });
-                    Cookies_Class.Cookies.Add(new Cookie() { Domain = "coupang.com", Name = "version", Value = "1.8.4" });
+                    Cookies_Class.Cookies.Add(new Cookie() { Domain = "coupang.com", Name = "version", Value = "1.10.2" });
                     Cookies_Class.Cookies.Add(new Cookie() { Domain = "coupang.com", Name = "app-type", Value = "COUPANG_POS" });
                 }
 
@@ -64,12 +65,26 @@ namespace Coupang
 
                         if (o.SelectToken("code").ToString () == "SUCCESS")
                         {
-                            //MessageBox.Show(o["content"]["stores"].First["storeId"].ToString());
                             JObject request_payload2 = new JObject();
-                            request_payload2.Add("storeId", o["content"]["stores"].First["storeId"].ToString());
-                               
+                            JArray storeIdsArray = new JArray();
 
-                            Task<IRestResponse> tx2 = Task.Run(() => Helper_Class.Send_Request("https://pos-api.coupang.com/api/v2/auth/sign-in/store", Method.POST, null, request_payload2.ToString()));
+                            // Iterate through the stores
+                            foreach (var store in o["content"]["stores"])
+                            {
+                                // Check if the store is integrated
+                                if ((bool)store["integrated"])
+                                {
+                                    // If integrated, add the store ID to the storeIdsArray
+                                    storeIdsArray.Add((int)store["storeId"]);
+                                }
+                            }
+
+                            // Create a JObject to hold the payload
+                            JObject payload = new JObject();
+                            payload["storeIds"] = storeIdsArray;
+                            request_payload2 = JObject.Parse(payload.ToString());
+                            // Add the payload dictionary to request_payload2
+                            Task<IRestResponse> tx2 = Task.Run(() => Helper_Class.Send_Request("https://pos-api.coupang.com/api/v2/auth/sign-in/stores", Method.POST, null, request_payload2.ToString()));
                                
                             tx2.Wait();
 

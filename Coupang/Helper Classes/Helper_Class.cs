@@ -55,7 +55,7 @@ namespace Coupang
             P_request.AddHeader("Origin", "chrome-extension://opbdabemkeebgjjopefgcjjccafieono");
             P_request.AddHeader("Content-Type", "application/json");
             P_request.AddHeader("client-sign", "3af24c94f45b2e3c023e286a6a4d41f2");
-            P_request.AddHeader("coupang-pos-version", "1.8.4");
+            P_request.AddHeader("coupang-pos-version", "1.10.3");
 
 
             IRestResponse _result = await Task.Run(() => P_client.ExecuteAsync(P_request));

@@ -1,5 +1,4 @@
-﻿
-namespace Coupang
+﻿namespace Coupang
 {
     partial class Form1
     {
@@ -30,6 +29,7 @@ namespace Coupang
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            PresentationControls.CheckBoxProperties checkBoxProperties1 = new PresentationControls.CheckBoxProperties();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.Status = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -45,6 +45,7 @@ namespace Coupang
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.In_Progress_pan = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.storeList = new PresentationControls.CheckBoxComboBox();
             this.Order_Details_pan = new System.Windows.Forms.FlowLayoutPanel();
             this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
@@ -76,9 +77,9 @@ namespace Coupang
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(9, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 18);
+            this.label1.Size = new System.Drawing.Size(46, 18);
             this.label1.TabIndex = 13;
-            this.label1.Text = "From Date";
+            this.label1.Text = "From";
             // 
             // Socket_Timer
             // 
@@ -171,7 +172,7 @@ namespace Coupang
             this.New_Orders_pan.BackColor = System.Drawing.Color.White;
             this.New_Orders_pan.Location = new System.Drawing.Point(0, 22);
             this.New_Orders_pan.Name = "New_Orders_pan";
-            this.New_Orders_pan.Size = new System.Drawing.Size(737, 406);
+            this.New_Orders_pan.Size = new System.Drawing.Size(737, 256);
             this.New_Orders_pan.TabIndex = 16;
             // 
             // tabPage2
@@ -201,6 +202,7 @@ namespace Coupang
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.AliceBlue;
+            this.tabPage3.Controls.Add(this.storeList);
             this.tabPage3.Controls.Add(this.Order_Details_pan);
             this.tabPage3.Controls.Add(this.button7);
             this.tabPage3.Controls.Add(this.button6);
@@ -214,6 +216,18 @@ namespace Coupang
             this.tabPage3.Size = new System.Drawing.Size(737, 444);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "주문내역";
+            // 
+            // storeList
+            // 
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.storeList.CheckBoxProperties = checkBoxProperties1;
+            this.storeList.DisplayMemberSingleItem = "";
+            this.storeList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.storeList.FormattingEnabled = true;
+            this.storeList.Location = new System.Drawing.Point(491, 9);
+            this.storeList.Name = "storeList";
+            this.storeList.Size = new System.Drawing.Size(161, 26);
+            this.storeList.TabIndex = 16;
             // 
             // Order_Details_pan
             // 
@@ -232,9 +246,9 @@ namespace Coupang
             this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(651, 9);
+            this.button7.Location = new System.Drawing.Point(658, 9);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(77, 26);
+            this.button7.Size = new System.Drawing.Size(70, 26);
             this.button7.TabIndex = 14;
             this.button7.Text = "오늘";
             this.button7.UseVisualStyleBackColor = true;
@@ -243,7 +257,7 @@ namespace Coupang
             // button6
             // 
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(300, 9);
+            this.button6.Location = new System.Drawing.Point(256, 9);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(31, 26);
             this.button6.TabIndex = 13;
@@ -254,7 +268,7 @@ namespace Coupang
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(99, 9);
+            this.button1.Location = new System.Drawing.Point(55, 9);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(31, 26);
             this.button1.TabIndex = 12;
@@ -267,7 +281,7 @@ namespace Coupang
             this.FromDate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.FromDate.CustomFormat = "yyyy-MM-dd";
             this.FromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.FromDate.Location = new System.Drawing.Point(136, 9);
+            this.FromDate.Location = new System.Drawing.Point(92, 9);
             this.FromDate.Name = "FromDate";
             this.FromDate.Size = new System.Drawing.Size(158, 26);
             this.FromDate.TabIndex = 11;
@@ -278,7 +292,7 @@ namespace Coupang
             this.ToDate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ToDate.CustomFormat = "yyyy-MM-dd";
             this.ToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.ToDate.Location = new System.Drawing.Point(428, 9);
+            this.ToDate.Location = new System.Drawing.Point(318, 9);
             this.ToDate.Name = "ToDate";
             this.ToDate.Size = new System.Drawing.Size(158, 26);
             this.ToDate.TabIndex = 14;
@@ -287,11 +301,11 @@ namespace Coupang
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(357, 13);
+            this.label2.Location = new System.Drawing.Point(289, 13);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 18);
+            this.label2.Size = new System.Drawing.Size(26, 18);
             this.label2.TabIndex = 15;
-            this.label2.Text = "To Date";
+            this.label2.Text = "To";
             // 
             // panel3
             // 
@@ -373,6 +387,7 @@ namespace Coupang
         private System.Windows.Forms.FlowLayoutPanel New_Orders_pan;
         private System.Windows.Forms.FlowLayoutPanel In_Progress_pan;
         internal System.Windows.Forms.TabControl tabControl1;
+        private PresentationControls.CheckBoxComboBox storeList;
     }
 }
 

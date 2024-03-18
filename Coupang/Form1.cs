@@ -11,6 +11,8 @@ using System.Linq;
 using System.Text;
 using Coupang.Controls;
 using Coupang.Restaurants_Controls;
+using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace Coupang
 {
@@ -19,6 +21,33 @@ namespace Coupang
         public Form1()
         {
             InitializeComponent();
+            this.storeList.CheckBoxCheckedChanged += StoreList_SelectedValueChanged;
+        }
+
+        private void StoreList_SelectedValueChanged(object sender, EventArgs e)
+        {
+            storeList.Items[0] = "Select Stores";
+            ShowSelectedStoreInfo();
+            GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.COMPLETED, FromDate.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), ToDate.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"));
+        }
+
+        public void ShowSelectedStoreInfo()
+        {
+            int count = 0;
+            for (int i = 1; i < storeList.CheckBoxItems.Count; i++)
+            {
+                if (storeList.CheckBoxItems[i].Checked) { count++; }
+            }
+            if (count == storeList.CheckBoxItems.Count - 1 || count == 0)
+            {
+                storeList.Items[0] = string.Format("전체매장 선택됨");
+                storeList.CheckBoxItems.All(x => x.Checked = true);
+            }
+            else
+            {
+                storeList.Items[0] = string.Format("{0}개매장 선택됨", count.ToString());
+            }
+
         }
 
         //public string Store_Id;
@@ -55,7 +84,6 @@ namespace Coupang
                                 if (o.SelectToken("code").ToString() == "SUCCESS")
                                 {
                                     Account_Id = o["content"]["accountId"].ToString();
-
                                     foreach (JToken x in o["content"]["verifiedStoreList"])
                                     {
 
@@ -66,7 +94,17 @@ namespace Coupang
                                             Size = new Size(Restaurants.Width - 27, 0)
 
                                         });
-
+                                        string tempStoreName = x.SelectToken("storeName").ToString();
+                                        if(tempStoreName.Length > 6)
+                                        {
+                                            tempStoreName = tempStoreName.Substring(0,5) + "...";
+                                        }
+                                        Stores_Item list = new Stores_Item()
+                                        {
+                                            R_ID = x.SelectToken("storeId").ToString(),
+                                            R_name = tempStoreName
+                                        };
+                                        storeList.Items.Add(tempStoreName);
                                     }
                                     if (Restaurants.Controls.Count > 0)
                                     {
@@ -92,15 +130,13 @@ namespace Coupang
 
                             this.Status.Text = tx.Result.StatusDescription.ToString();
                         }
-
-
+                        
                         Status.Text = tx.Result.ResponseStatus.ToString();
                     }));
                 }
 
             }));
             th.Start();
-
         }
 
         public void Stores_Availabilities_Status()
@@ -167,16 +203,46 @@ namespace Coupang
 
         public void GetOrder(string Store_ID, Order_Type _order_type, string start_date = null, string end_date = null)
         {
-
-
-
-
-
-
+            string storeIDs = string.Empty;
+            if (_order_type == Order_Type.COMPLETED)
+            {
+                int count = 0;
+                for(int i = 1; i < storeList.CheckBoxItems.Count; i++)
+                {
+                    if (storeList.CheckBoxItems[i].Checked == true)
+                    {
+                        if (count == 0)
+                        {
+                            storeIDs = ((Stores_Item)this.Restaurants.Controls[i - 1]).R_ID;
+                        }
+                        else
+                        {
+                            storeIDs += "," + ((Stores_Item)this.Restaurants.Controls[i - 1]).R_ID;
+                        }
+                        count++;
+                    }
+                }
+            }
+            else
+            {
+                int count = 0;
+                foreach (Stores_Item r in this.Restaurants.Controls)
+                {
+                    if (count == 0)
+                    {
+                        storeIDs = r.R_ID;
+                    }
+                    else
+                    {
+                        storeIDs += "," + r.R_ID;
+                    }
+                    count++;
+                }
+            }
 
             var QueryParameters = new List<Tuple<string, string>>();
 
-            QueryParameters.Add(new Tuple<string, string>("storeIds", Store_ID));
+            QueryParameters.Add(new Tuple<string, string>("storeIds", storeIDs));
             QueryParameters.Add(new Tuple<string, string>("status", _order_type.ToString()));
 
 
@@ -234,7 +300,7 @@ namespace Coupang
 
 
                                     Order_Item o_item = new Order_Item();
-                                    o_item.StoreID = Store_ID;
+                                    o_item.StoreID = x["storeId"].ToString();
                                     o_item.orderId = x["orderId"].ToString();
 
                                     o_item.abbrOrderId.Text = x["abbrOrderId"] != null ? x["abbrOrderId"].ToString() : "...";
@@ -361,7 +427,7 @@ namespace Coupang
                         if (o.SelectToken("code").ToString() == "SUCCESS")
                         {
                             MessageBox.Show("Delivery completed successfully!");
-                            GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.PROCESSING, "2000-05-27" + "T00:00:00.000+02:00", "2025-05-27" + "T23:59:59.999+02:00");
+                            GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.PROCESSING);
                         }
                     }
                 }
@@ -387,7 +453,7 @@ namespace Coupang
                         if (o.SelectToken("code").ToString() == "SUCCESS")
                         {
                             MessageBox.Show("Successfully notified");
-                            GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.PROCESSING, "2000-05-27" + "T00:00:00.000+02:00", "2025-05-27" + "T23:59:59.999+02:00");
+                            GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.PROCESSING);
                         }
                     }
                 }
@@ -637,16 +703,17 @@ namespace Coupang
                 switch (this.tabControl1.SelectedTab.Text)
                 {
                     case "주문내역":
-                        GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.COMPLETED, "2000-05-27" + "T00:00:00.000+02:00", "2025-05-27" + "T23:59:59.999+02:00");
+                        storeList.CheckBoxItems.All(x => x.Checked = true);
+                        GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.COMPLETED, FromDate.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), ToDate.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"));
                         //GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.COMPLETED, "2022-05-27" + "T00:00:00.000+02:00", "2022-05-27" + "T23:59:59.999+02:00");
                         break;
 
                     case "진행중":
-                        GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.PROCESSING, "2000-05-27" + "T00:00:00.000+02:00", "2025-05-27" + "T23:59:59.999+02:00");
+                        GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.PROCESSING);
                         break;
 
                     case "접수대기":
-                        GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.PENDING,"2000-05-27" + "T00:00:00.000+02:00", "2025-05-27" + "T23:59:59.999+02:00");
+                        GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.PENDING);
                         break;
                 }
             }
@@ -677,8 +744,6 @@ namespace Coupang
             if (this.Restaurants.Controls.Count > 0)
             {
                 FromDate.Value = FromDate.Value.AddDays(+1);
-
-
             }
 
 
@@ -692,6 +757,5 @@ namespace Coupang
 
             }
         }
-
     }
 }

@@ -9,7 +9,7 @@
   },
   {
     "Name": "version",
-    "Value": "1.8.4",
+    "Value": "1.10.2",
     "Path": "/",
     "Domain": "coupang.com",
     "Secure": false,
@@ -25,19 +25,19 @@
   },
   {
     "Name": "access-token",
-    "Value": "d96facbf43e4d2052e30842a16ab85dac0c5f4538a9000332fff1284f601055a",
+    "Value": "e77729ff5f16549bd04a2b4d4713f6e3ce8ed0b8770a1c81f5ddbae8b9b52cf7",
     "Path": "/",
     "Domain": "coupang.com",
     "Secure": true,
-    "Expires": "2024-04-12T16:24:54.9265302+08:00"
+    "Expires": "2024-04-17T11:34:03.1790572+08:00"
   },
   {
     "Name": "refresh-token",
-    "Value": "06ab64bd35d28c3d5407cea4d27e5b44f8cb14e9d85292704f6f8cbeb6470d69",
+    "Value": "a85db071000d88653d43452ec8bc1e3c6f347b0b91dd6f21c9f0251efa729c6d",
     "Path": "/",
     "Domain": "coupang.com",
     "Secure": true,
-    "Expires": "2024-04-12T16:24:54.9265302+08:00"
+    "Expires": "2024-04-17T11:34:03.1790572+08:00"
   },
   {
     "Name": "account-id",
@@ -45,7 +45,7 @@
     "Path": "/",
     "Domain": "coupang.com",
     "Secure": true,
-    "Expires": "2024-04-12T16:24:54.9265302+08:00"
+    "Expires": "2024-04-17T11:34:03.1790572+08:00"
   },
   {
     "Name": "store-id",
@@ -53,19 +53,19 @@
     "Path": "/",
     "Domain": "coupang.com",
     "Secure": true,
-    "Expires": "2024-04-12T16:24:56.4663809+08:00"
+    "Expires": "2024-04-17T11:34:04.2883784+08:00"
   },
   {
     "Name": "integrated-store-ids",
-    "Value": "",
+    "Value": "192569_532908_621034",
     "Path": "/",
     "Domain": "coupang.com",
     "Secure": true,
-    "Expires": "2024-04-12T16:24:56.4663809+08:00"
+    "Expires": "2024-04-17T11:34:04.2883784+08:00"
   },
   {
     "Name": "SESSION",
-    "Value": "YzNmYmY2OTktYzYwYi00ZjllLWIwZDEtOWY4ODBkY2I5NWRk",
+    "Value": "NTY1NzVlYjctMWI3Mi00OTA0LThlNzItMDNiMDZjYzhlMGYy",
     "Path": "/",
     "Domain": "coupang.com",
     "Secure": true,
