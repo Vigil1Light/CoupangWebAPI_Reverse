@@ -75,16 +75,29 @@ namespace Coupang
                                 if ((bool)store["integrated"])
                                 {
                                     // If integrated, add the store ID to the storeIdsArray
+                                    Coupang.Program.Global.isIntegrated = true;
                                     storeIdsArray.Add((int)store["storeId"]);
+                                }
+                                else
+                                {
+                                    Coupang.Program.Global.storeID = (int)store["storeId"];
                                 }
                             }
 
-                            // Create a JObject to hold the payload
                             JObject payload = new JObject();
                             payload["storeIds"] = storeIdsArray;
+                            string url = "https://pos-api.coupang.com/api/v2/auth/sign-in/stores";
+                            if (!Coupang.Program.Global.isIntegrated)
+                            {
+                                payload["storeId"] = Coupang.Program.Global.storeID;
+                                url = "https://pos-api.coupang.com/api/v2/auth/sign-in/store";
+                            }
+
+                            // Create a JObject to hold the payload
+
                             request_payload2 = JObject.Parse(payload.ToString());
                             // Add the payload dictionary to request_payload2
-                            Task<IRestResponse> tx2 = Task.Run(() => Helper_Class.Send_Request("https://pos-api.coupang.com/api/v2/auth/sign-in/stores", Method.POST, null, request_payload2.ToString()));
+                            Task<IRestResponse> tx2 = Task.Run(() => Helper_Class.Send_Request(url, Method.POST, null, request_payload2.ToString()));
                                
                             tx2.Wait();
 

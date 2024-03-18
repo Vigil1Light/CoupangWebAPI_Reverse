@@ -51,5 +51,10 @@ namespace Coupang
          
            
         }
+        public static class Global
+        {
+            public static bool isIntegrated = false;
+            public static int storeID;
+        }
     }
 }

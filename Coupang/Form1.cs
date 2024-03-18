@@ -28,7 +28,7 @@ namespace Coupang
         {
             storeList.Items[0] = "Select Stores";
             ShowSelectedStoreInfo();
-            GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.COMPLETED, FromDate.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), ToDate.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"));
+            GetOrder(Order_Type.COMPLETED, FromDate.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), ToDate.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"));
         }
 
         public void ShowSelectedStoreInfo()
@@ -41,7 +41,10 @@ namespace Coupang
             if (count == storeList.CheckBoxItems.Count - 1 || count == 0)
             {
                 storeList.Items[0] = string.Format("전체매장 선택됨");
-                storeList.CheckBoxItems.All(x => x.Checked = true);
+                for (int i = 1; i < storeList.CheckBoxItems.Count; i++)
+                {
+                    storeList.CheckBoxItems[i].Checked = true;
+                }
             }
             else
             {
@@ -132,6 +135,7 @@ namespace Coupang
                         }
                         
                         Status.Text = tx.Result.ResponseStatus.ToString();
+                        ShowSelectedStoreInfo();
                     }));
                 }
 
@@ -201,7 +205,7 @@ namespace Coupang
         public enum Order_Type { PENDING, PROCESSING, COMPLETED }
 
 
-        public void GetOrder(string Store_ID, Order_Type _order_type, string start_date = null, string end_date = null)
+        public void GetOrder(Order_Type _order_type, string start_date = null, string end_date = null)
         {
             string storeIDs = string.Empty;
             if (_order_type == Order_Type.COMPLETED)
@@ -342,9 +346,9 @@ namespace Coupang
                                     }
 
                                     //o_item.Anchor = (AnchorStyles.Left | AnchorStyles.Right);
-                                    o_item.Click += (ss, ee) => { Get_Order_Details(ss, ee, Store_ID, o_item.orderId); };
-                                    o_item.button1.Click += (ss, ee) => { Packaging_Complete_Notify(ss, ee, Store_ID, o_item.orderId); };
-                                    o_item.button2.Click += (ss, ee) => { CompleteDelivery(ss, ee, Store_ID, o_item.orderId); };
+                                    o_item.Click += (ss, ee) => { Get_Order_Details(ss, ee, o_item.StoreID, o_item.orderId); };
+                                    o_item.button1.Click += (ss, ee) => { Packaging_Complete_Notify(ss, ee, o_item.StoreID, o_item.orderId); };
+                                    o_item.button2.Click += (ss, ee) => { CompleteDelivery(ss, ee, o_item.StoreID, o_item.orderId); };
                                     switch (o_item.O_status.Text)
                                     {
                                         case "COMPLETED":
@@ -427,7 +431,7 @@ namespace Coupang
                         if (o.SelectToken("code").ToString() == "SUCCESS")
                         {
                             MessageBox.Show("Delivery completed successfully!");
-                            GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.PROCESSING);
+                            GetOrder(Order_Type.PROCESSING);
                         }
                     }
                 }
@@ -453,7 +457,7 @@ namespace Coupang
                         if (o.SelectToken("code").ToString() == "SUCCESS")
                         {
                             MessageBox.Show("Successfully notified");
-                            GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.PROCESSING);
+                            GetOrder(Order_Type.PROCESSING);
                         }
                     }
                 }
@@ -600,7 +604,7 @@ namespace Coupang
 
                 if (this.tabControl1.SelectedTab.Text == "접수대기")
                 {
-                    GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.PENDING);
+                    GetOrder(Order_Type.PENDING);
                 }
 
 
@@ -693,7 +697,7 @@ namespace Coupang
 
         private void button7_Click(object sender, EventArgs e)
         {
-            GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.COMPLETED, FromDate.Value.ToString("yyyy-MM-dd") + "T00:00:00.000+02:00", ToDate.Value.ToString("yyyy-MM-dd") + "T23:59:59.999+02:00");
+            GetOrder(Order_Type.COMPLETED, FromDate.Value.ToString("yyyy-MM-dd") + "T00:00:00.000+02:00", ToDate.Value.ToString("yyyy-MM-dd") + "T23:59:59.999+02:00");
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -703,17 +707,16 @@ namespace Coupang
                 switch (this.tabControl1.SelectedTab.Text)
                 {
                     case "주문내역":
-                        storeList.CheckBoxItems.All(x => x.Checked = true);
-                        GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.COMPLETED, FromDate.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), ToDate.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"));
+                        GetOrder(Order_Type.COMPLETED, FromDate.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), ToDate.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"));
                         //GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.COMPLETED, "2022-05-27" + "T00:00:00.000+02:00", "2022-05-27" + "T23:59:59.999+02:00");
                         break;
 
                     case "진행중":
-                        GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.PROCESSING);
+                        GetOrder(Order_Type.PROCESSING);
                         break;
 
                     case "접수대기":
-                        GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.PENDING);
+                        GetOrder(Order_Type.PENDING);
                         break;
                 }
             }
@@ -725,7 +728,7 @@ namespace Coupang
         {
             if (this.Restaurants.Controls.Count > 0)
             {
-                GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.COMPLETED, FromDate.Value.ToString("yyyy-MM-dd") + "T00:00:00.000+02:00", ToDate.Value.ToString("yyyy-MM-dd") + "T23:59:59.999+02:00");
+                GetOrder(Order_Type.COMPLETED, FromDate.Value.ToString("yyyy-MM-dd") + "T00:00:00.000+02:00", ToDate.Value.ToString("yyyy-MM-dd") + "T23:59:59.999+02:00");
             }
 
         }
@@ -734,7 +737,7 @@ namespace Coupang
         {
             if (this.Restaurants.Controls.Count > 0)
             {
-                GetOrder(((Stores_Item)this.Restaurants.Controls[0]).R_ID, Order_Type.COMPLETED, FromDate.Value.ToString("yyyy-MM-dd") + "T00:00:00.000+02:00", ToDate.Value.ToString("yyyy-MM-dd") + "T23:59:59.999+02:00");
+                GetOrder(Order_Type.COMPLETED, FromDate.Value.ToString("yyyy-MM-dd") + "T00:00:00.000+02:00", ToDate.Value.ToString("yyyy-MM-dd") + "T23:59:59.999+02:00");
             }
 
         }

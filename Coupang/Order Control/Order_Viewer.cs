@@ -120,7 +120,7 @@ namespace Coupang
                                 Form1 main_frm = (Form1)Application.OpenForms["Form1"];
                                 if (main_frm.tabControl1.SelectedTab.Text == "접수대기")
                                 {
-                                    main_frm.GetOrder(store_ID, Form1.Order_Type.PENDING);
+                                    main_frm.GetOrder(Form1.Order_Type.PENDING);
                                 }
 
                                 this.Dispose();
@@ -197,7 +197,7 @@ namespace Coupang
                                         Form1 main_frm = (Form1)Application.OpenForms["Form1"];
                                         if (main_frm.tabControl1.SelectedTab.Text == "접수대기")
                                         {
-                                            main_frm.GetOrder(store_ID, Form1.Order_Type.PENDING);
+                                            main_frm.GetOrder(Form1.Order_Type.PENDING);
                                         }
 
 

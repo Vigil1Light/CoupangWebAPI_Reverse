@@ -172,7 +172,7 @@ namespace Coupang
 
                                                                 if (frm.tabControl1.SelectedTab.Text == "접수대기")
                                                                 {
-                                                                    frm.GetOrder(n.orderStoreId.Text, Form1.Order_Type.PENDING);
+                                                                    frm.GetOrder(Form1.Order_Type.PENDING);
                                                                 }
                                                                   
                                                             }
