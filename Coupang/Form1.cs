@@ -304,30 +304,80 @@ namespace Coupang
 
 
                                     Order_Item o_item = new Order_Item();
-                                    o_item.StoreID = x["storeId"].ToString();
-                                    o_item.orderId = x["orderId"].ToString();
+                                    o_item.Click += (ss, ee) => { Get_Order_Details(ss, ee, o_item.StoreID, o_item.orderId); };
+                                    o_item.button1.Click += (ss, ee) => { Packaging_Complete_Notify(ss, ee, o_item.StoreID, o_item.orderId); };
+                                    o_item.button2.Click += (ss, ee) => { CompleteDelivery(ss, ee, o_item.StoreID, o_item.orderId); };
+                                    if (x["orderServiceType"].ToString() == "DELIVERY")
+                                    {
+                                        o_item.label1.Text = "배정중";
+                                        o_item.statusText.Text = "매장 이동중";
+                                        o_item.label4.Text = "배달 파트너";
+                                        o_item.button2.Visible = false;
+                                        o_item.button1.Text = "배달준비완료";
 
-                                    o_item.abbrOrderId.Text = x["abbrOrderId"] != null ? x["abbrOrderId"].ToString() : "...";
-                                    o_item.Order_Time.Text = x["orderedAt"]["dateTime"] != null ? Helper_Class.From_Unix_Timestamp(double.Parse(x["orderedAt"]["dateTime"].ToString())).ToString("hh:mm tt") : "...";
-                                    o_item.note.Text = x["note"] != null ? x["note"].ToString() : "...";
-                                    o_item.Size = new Size(Order_Details_pan.Width - 24, o_item.Height);
+                                        o_item.StoreID = x["storeId"].ToString();
+                                        o_item.orderId = x["orderId"].ToString();
 
-                                    o_item.O_status.Text = x["status"] != null ? x["status"].ToString() : "...";
-                                    o_item.O_orderServiceType.Text = x["orderServiceType"] != null ? x["orderServiceType"].ToString() : "...";
+                                        o_item.abbrOrderId.Text = x["abbrOrderId"] != null ? x["abbrOrderId"].ToString() : "...";
+                                        o_item.Order_Time.Text = x["orderedAt"]["dateTime"] != null ? Helper_Class.From_Unix_Timestamp(double.Parse(x["orderedAt"]["dateTime"].ToString())).ToString("hh:mm tt") : "...";
+                                        o_item.note.Text = x["note"] != null ? x["note"].ToString() : "...";
+                                        o_item.Size = new Size(Order_Details_pan.Width - 24, o_item.Height);
+
+                                        o_item.O_status.Text = x["status"] != null ? x["status"].ToString() : "...";
+                                        o_item.O_orderServiceType.Text = x["orderServiceType"] != null ? x["orderServiceType"].ToString() : "...";
 
 
-                                    o_item.remainingTime.Text = (Math.Abs(int.Parse(x["state"]["preparationRemainingTime"].ToString())) / 60).ToString();
-                                    if (x["state"]["statusText"].ToString() == "Assigned" || x["state"]["statusText"].ToString() == "Ready") 
-                                    { 
-                                        o_item.orderAssignStatus.Checked = true; 
+                                        o_item.remainingTime.Text = (Math.Abs(int.Parse(x["state"]["preparationRemainingTime"].ToString())) / 60).ToString();
+                                        if(x["state"]["statusText"].ToString() == "Ready")
+                                        {
+                                            o_item.button1.Enabled = false;
+                                        }
+                                        if (x["state"]["courierStatus"].ToString() == "COURIER_ASSIGNING")
+                                        {
+                                            o_item.label4.Visible = false;
+                                            o_item.pickupTime.Visible = false;
+                                            o_item.label6.Visible = false;
+                                        }
+                                        else if (x["state"]["courierStatus"].ToString() == "COURIER_ACCEPTED" || x["state"]["statusText"].ToString() == "Ready")
+                                        {
+                                            o_item.orderAssignStatus.Checked = true;
+                                            o_item.label1.Text = "배정완료";
+                                        }
+                                        else if (x["state"]["courierStatus"].ToString() == "COURIER_ARRIVED")
+                                        {
+                                            o_item.orderPrepareStatus.Checked = true;
+                                            o_item.statusText.Text = "매장도착";
+                                            o_item.remainingTime.Text = "0";
+                                        }
                                     }
-                                    if (x["state"]["statusText"].ToString() == "Ready") 
-                                    { 
-                                        o_item.orderPrepareStatus.Checked = true;
-                                        o_item.statusText.Text = "포장완료알림";
-                                        o_item.remainingTime.Text = "0";
-                                        o_item.button1.Enabled = false;
+                                    else
+                                    {
+                                        o_item.StoreID = x["storeId"].ToString();
+                                        o_item.orderId = x["orderId"].ToString();
+
+                                        o_item.abbrOrderId.Text = x["abbrOrderId"] != null ? x["abbrOrderId"].ToString() : "...";
+                                        o_item.Order_Time.Text = x["orderedAt"]["dateTime"] != null ? Helper_Class.From_Unix_Timestamp(double.Parse(x["orderedAt"]["dateTime"].ToString())).ToString("hh:mm tt") : "...";
+                                        o_item.note.Text = x["note"] != null ? x["note"].ToString() : "...";
+                                        o_item.Size = new Size(Order_Details_pan.Width - 24, o_item.Height);
+
+                                        o_item.O_status.Text = x["status"] != null ? x["status"].ToString() : "...";
+                                        o_item.O_orderServiceType.Text = x["orderServiceType"] != null ? x["orderServiceType"].ToString() : "...";
+
+
+                                        o_item.remainingTime.Text = (Math.Abs(int.Parse(x["state"]["preparationRemainingTime"].ToString())) / 60).ToString();
+                                        if (x["state"]["statusText"].ToString() == "Assigned" || x["state"]["statusText"].ToString() == "Ready")
+                                        {
+                                            o_item.orderAssignStatus.Checked = true;
+                                        }
+                                        if (x["state"]["statusText"].ToString() == "Ready")
+                                        {
+                                            o_item.orderPrepareStatus.Checked = true;
+                                            o_item.statusText.Text = "포장완료알림";
+                                            o_item.remainingTime.Text = "0";
+                                            o_item.button1.Enabled = false;
+                                        }
                                     }
+
                                     o_item.pickupTime.Text = x["state"]["estimatedPickUpTime"].ToString();
                                     if(int.Parse(x["state"]["preparationRemainingTime"].ToString()) > 0)
                                     {
@@ -346,9 +396,6 @@ namespace Coupang
                                     }
 
                                     //o_item.Anchor = (AnchorStyles.Left | AnchorStyles.Right);
-                                    o_item.Click += (ss, ee) => { Get_Order_Details(ss, ee, o_item.StoreID, o_item.orderId); };
-                                    o_item.button1.Click += (ss, ee) => { Packaging_Complete_Notify(ss, ee, o_item.StoreID, o_item.orderId); };
-                                    o_item.button2.Click += (ss, ee) => { CompleteDelivery(ss, ee, o_item.StoreID, o_item.orderId); };
                                     switch (o_item.O_status.Text)
                                     {
                                         case "COMPLETED":
