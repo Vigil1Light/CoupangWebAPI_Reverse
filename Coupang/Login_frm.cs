@@ -36,6 +36,8 @@ namespace Coupang
             this.button1.Enabled = false;
             Thread th = new Thread(new ParameterizedThreadStart((object f) =>
             {
+                Coupang.Program.Global.username = username.Text;
+                Coupang.Program.Global.password = password.Text;
                 if (Cookies_Class.Cookies.GetCookies(new Uri ("https://pos-api.coupang.com"))["device-id"] == null)
                 {
                     Cookies_Class.Cookies.Add(new Cookie() { Domain = "coupang.com", Name = "device-id", Value = "3f4cdd2f-66d9-4296-b867-5eff57ae6af8aaa" });
@@ -47,8 +49,8 @@ namespace Coupang
 
 
                 JObject request_payload = new JObject();
-                request_payload.Add("username", this.username.Text);
-                request_payload.Add("password", this.password.Text); //Signin_Helper.Password_Genrator(public_key,this.password.Text));
+                request_payload.Add("username", username.Text);
+                request_payload.Add("password", password.Text); //Signin_Helper.Password_Genrator(public_key,this.password.Text));
                 request_payload.Add("encrypt", false);
 
 

@@ -55,6 +55,8 @@ namespace Coupang
         {
             public static bool isIntegrated = false;
             public static int storeID;
+            public static string username;
+            public static string password;
         }
     }
 }

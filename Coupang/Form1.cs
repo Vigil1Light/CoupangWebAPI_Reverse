@@ -13,6 +13,8 @@ using Coupang.Controls;
 using Coupang.Restaurants_Controls;
 using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
+using Newtonsoft.Json;
+using System.Net;
 
 namespace Coupang
 {
@@ -22,6 +24,7 @@ namespace Coupang
         {
             InitializeComponent();
             this.storeList.CheckBoxCheckedChanged += StoreList_SelectedValueChanged;
+            Refresh_Timer.Start();
         }
 
         private void StoreList_SelectedValueChanged(object sender, EventArgs e)
@@ -313,7 +316,7 @@ namespace Coupang
                                         o_item.statusText.Text = "매장 이동중";
                                         o_item.label4.Text = "배달 파트너";
                                         o_item.button2.Visible = false;
-                                        o_item.button1.Text = "배달준비완료";
+                                        o_item.button1.Text = "준비완료";
 
                                         o_item.StoreID = x["storeId"].ToString();
                                         o_item.orderId = x["orderId"].ToString();
@@ -331,6 +334,7 @@ namespace Coupang
                                         if(x["state"]["statusText"].ToString() == "Ready")
                                         {
                                             o_item.button1.Enabled = false;
+                                            o_item.button1.Text = "배달준비완료";
                                         }
                                         if (x["state"]["courierStatus"].ToString() == "COURIER_ASSIGNING")
                                         {
@@ -806,6 +810,128 @@ namespace Coupang
                 FromDate.Value = FromDate.Value.AddDays(-1);
 
             }
+        }
+
+        public void RefreshCookie()
+        {
+            Thread th = new Thread(new ParameterizedThreadStart((object f) =>
+            {
+                if (Cookies_Class.Cookies.GetCookies(new Uri("https://pos-api.coupang.com"))["device-id"] == null)
+                {
+                    Cookies_Class.Cookies.Add(new Cookie() { Domain = "coupang.com", Name = "device-id", Value = "3f4cdd2f-66d9-4296-b867-5eff57ae6af8aaa" });
+                    Cookies_Class.Cookies.Add(new Cookie() { Domain = "coupang.com", Name = "version", Value = "1.10.2" });
+                    Cookies_Class.Cookies.Add(new Cookie() { Domain = "coupang.com", Name = "app-type", Value = "COUPANG_POS" });
+                }
+
+                //const string public_key = @"MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJzE1obe1GiSE6rqaIWjreZ8NmXur3dYgJPths2FDnNtN3Mwgl0ZNDc7RUZwgE4LZf9E2Tf3JmLpRIKXHGXhCyUCAwEAAQ==";
+
+
+                JObject request_payload = new JObject();
+                request_payload.Add("username", Coupang.Program.Global.username);
+                request_payload.Add("password", Coupang.Program.Global.password); //Signin_Helper.Password_Genrator(public_key,this.password.Text));
+                request_payload.Add("encrypt", false);
+
+
+                Task<IRestResponse> tx = Task.Run(() => Helper_Class.Send_Request("https://pos-api.coupang.com/api/v2/auth/sign-in/user", Method.POST, null, request_payload.ToString()));
+                tx.Wait();
+
+                if (!string.IsNullOrEmpty(tx.Result.Content))
+                {
+                    StringReader reader = new StringReader(tx.Result.Content.ToString());
+                    using (JsonReader jsonReader = new JsonTextReader(reader))
+                    {
+                        JsonSerializer Deserializer = new JsonSerializer();
+                        var o = (JToken)Deserializer.Deserialize<JToken>(jsonReader);
+
+                        if (o.SelectToken("code").ToString() == "SUCCESS")
+                        {
+                            JObject request_payload2 = new JObject();
+                            JArray storeIdsArray = new JArray();
+
+                            // Iterate through the stores
+                            foreach (var store in o["content"]["stores"])
+                            {
+                                // Check if the store is integrated
+                                if ((bool)store["integrated"])
+                                {
+                                    // If integrated, add the store ID to the storeIdsArray
+                                    Coupang.Program.Global.isIntegrated = true;
+                                    storeIdsArray.Add((int)store["storeId"]);
+                                }
+                                else
+                                {
+                                    Coupang.Program.Global.storeID = (int)store["storeId"];
+                                }
+                            }
+
+                            JObject payload = new JObject();
+                            payload["storeIds"] = storeIdsArray;
+                            string url = "https://pos-api.coupang.com/api/v2/auth/sign-in/stores";
+                            if (!Coupang.Program.Global.isIntegrated)
+                            {
+                                payload["storeId"] = Coupang.Program.Global.storeID;
+                                url = "https://pos-api.coupang.com/api/v2/auth/sign-in/store";
+                            }
+
+                            // Create a JObject to hold the payload
+
+                            request_payload2 = JObject.Parse(payload.ToString());
+                            // Add the payload dictionary to request_payload2
+                            Task<IRestResponse> tx2 = Task.Run(() => Helper_Class.Send_Request(url, Method.POST, null, request_payload2.ToString()));
+
+                            tx2.Wait();
+
+                            //this.Invoke(new Action(() => {
+                            //    this.textBox1.Text = tx2.Result.Content.ToString();
+                            //    //this.label3.Text = tx2.Result.StatusCode.ToString();
+
+                            //}));
+
+                            if (!string.IsNullOrEmpty(tx2.Result.Content))
+                            {
+
+                                StringReader reader2 = new StringReader(tx2.Result.Content.ToString());
+                                using (JsonReader jsonReader2 = new JsonTextReader(reader2))
+                                {
+                                    JsonSerializer Deserializer2 = new JsonSerializer();
+                                    var o2 = (JToken)Deserializer2.Deserialize<JToken>(jsonReader2);
+
+                                    if (o2.SelectToken("code").ToString() == "SUCCESS")
+                                    {
+                                        Cookies_Class.Save_Cookies();
+                                        this.Invoke(new Action(() =>
+                                        {
+
+                                            Task<IRestResponse> tx3 = Task.Run(() => Helper_Class.Send_Request("https://pos-api.coupang.com/api/v1/meta/cs-info", Method.GET, null, null));
+                                            //Task<IRestResponse> tx4 = Task.Run(() => Helper_Class.Send_Request("https://pos-push.coupang.com/push/info?t=1653305147507", Method.GET, null, null));
+                                            Get_stores();
+
+                                        }));
+                                    }
+
+                                }
+                            }
+                        }
+                        else
+                        {
+                            this.Invoke(new Action(() => {
+
+                                MessageBox.Show(this, o.SelectToken("message").ToString(), o.SelectToken("code").ToString().Replace("_", " "), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }));
+
+                        }
+                    }
+                }
+            }));
+            th.Start();
+        }
+
+        private void Refresh_Timer_Tick(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(Coupang.Program.Global.username) && !string.IsNullOrEmpty(Coupang.Program.Global.password))
+            {
+                RefreshCookie();
+            }        
         }
     }
 }

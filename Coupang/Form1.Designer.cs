@@ -55,6 +55,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.Login_btn = new System.Windows.Forms.Button();
+            this.Refresh_Timer = new System.Windows.Forms.Timer(this.components);
             this.panel2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -329,6 +330,11 @@
             this.Login_btn.UseVisualStyleBackColor = true;
             this.Login_btn.Click += new System.EventHandler(this.Login_Button_Click);
             // 
+            // Refresh_Timer
+            // 
+            this.Refresh_Timer.Interval = 3000000;
+            this.Refresh_Timer.Tick += new System.EventHandler(this.Refresh_Timer_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -388,6 +394,7 @@
         private System.Windows.Forms.FlowLayoutPanel In_Progress_pan;
         internal System.Windows.Forms.TabControl tabControl1;
         private PresentationControls.CheckBoxComboBox storeList;
+        internal System.Windows.Forms.Timer Refresh_Timer;
     }
 }
 
