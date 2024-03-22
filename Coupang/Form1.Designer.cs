@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            PresentationControls.CheckBoxProperties checkBoxProperties1 = new PresentationControls.CheckBoxProperties();
+            PresentationControls.CheckBoxProperties checkBoxProperties2 = new PresentationControls.CheckBoxProperties();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.Status = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -56,6 +56,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.Login_btn = new System.Windows.Forms.Button();
             this.Refresh_Timer = new System.Windows.Forms.Timer(this.components);
+            this.Sync_Timer = new System.Windows.Forms.Timer(this.components);
             this.panel2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -220,8 +221,8 @@
             // 
             // storeList
             // 
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.storeList.CheckBoxProperties = checkBoxProperties1;
+            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.storeList.CheckBoxProperties = checkBoxProperties2;
             this.storeList.DisplayMemberSingleItem = "";
             this.storeList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.storeList.FormattingEnabled = true;
@@ -335,6 +336,11 @@
             this.Refresh_Timer.Interval = 3000000;
             this.Refresh_Timer.Tick += new System.EventHandler(this.Refresh_Timer_Tick);
             // 
+            // Sync_Timer
+            // 
+            this.Sync_Timer.Interval = 60000;
+            this.Sync_Timer.Tick += new System.EventHandler(this.Sync_Timer_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -395,6 +401,7 @@
         internal System.Windows.Forms.TabControl tabControl1;
         private PresentationControls.CheckBoxComboBox storeList;
         internal System.Windows.Forms.Timer Refresh_Timer;
+        internal System.Windows.Forms.Timer Sync_Timer;
     }
 }
 

@@ -25,6 +25,7 @@ namespace Coupang
             InitializeComponent();
             this.storeList.CheckBoxCheckedChanged += StoreList_SelectedValueChanged;
             Refresh_Timer.Start();
+            Sync_Timer.Start();
         }
 
         private void StoreList_SelectedValueChanged(object sender, EventArgs e)
@@ -932,6 +933,11 @@ namespace Coupang
             {
                 RefreshCookie();
             }        
+        }
+
+        private void Sync_Timer_Tick(object sender, EventArgs e)
+        {
+            GetOrder(Order_Type.PROCESSING);
         }
     }
 }
