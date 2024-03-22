@@ -309,15 +309,15 @@ namespace Coupang
 
                                     Order_Item o_item = new Order_Item();
                                     o_item.Click += (ss, ee) => { Get_Order_Details(ss, ee, o_item.StoreID, o_item.orderId); };
-                                    o_item.button1.Click += (ss, ee) => { Packaging_Complete_Notify(ss, ee, o_item.StoreID, o_item.orderId); };
-                                    o_item.button2.Click += (ss, ee) => { CompleteDelivery(ss, ee, o_item.StoreID, o_item.orderId); };
+                                    o_item.complete1.Click += (ss, ee) => { Packaging_Complete_Notify(ss, ee, o_item.StoreID, o_item.orderId); };
+                                    o_item.complete2.Click += (ss, ee) => { CompleteDelivery(ss, ee, o_item.StoreID, o_item.orderId); };
                                     if (x["orderServiceType"].ToString() == "DELIVERY")
                                     {
                                         o_item.label1.Text = "배정중";
                                         o_item.statusText.Text = "매장 이동중";
                                         o_item.label4.Text = "배달 파트너";
-                                        o_item.button2.Visible = false;
-                                        o_item.button1.Text = "준비완료";
+                                        o_item.complete2.Visible = false;
+                                        o_item.complete1.Text = "준비완료";
 
                                         o_item.StoreID = x["storeId"].ToString();
                                         o_item.orderId = x["orderId"].ToString();
@@ -334,8 +334,8 @@ namespace Coupang
                                         o_item.remainingTime.Text = (Math.Abs(int.Parse(x["state"]["preparationRemainingTime"].ToString())) / 60).ToString();
                                         if(x["state"]["statusText"].ToString() == "Ready")
                                         {
-                                            o_item.button1.Enabled = false;
-                                            o_item.button1.Text = "배달준비완료";
+                                            o_item.complete1.Enabled = false;
+                                            o_item.complete1.Text = "배달준비완료";
                                         }
                                         if (x["state"]["courierStatus"].ToString() == "COURIER_ASSIGNING")
                                         {
@@ -379,7 +379,7 @@ namespace Coupang
                                             o_item.orderPrepareStatus.Checked = true;
                                             o_item.statusText.Text = "포장완료알림";
                                             o_item.remainingTime.Text = "0";
-                                            o_item.button1.Enabled = false;
+                                            o_item.complete1.Enabled = false;
                                         }
                                     }
 
@@ -531,8 +531,11 @@ namespace Coupang
             item.pickupTime.Visible = state;
             item.remainingTime.Visible = state;
             item.remainType.Visible = state;
-            item.button1.Visible = state;
-            item.button2.Visible = state;
+            if(!state)
+            {
+                item.complete1.Visible = state;
+                item.complete2.Visible = state;
+            }  
         }
 
 

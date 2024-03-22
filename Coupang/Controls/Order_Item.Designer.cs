@@ -47,8 +47,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.remainingTime = new System.Windows.Forms.Label();
             this.remainType = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.complete1 = new System.Windows.Forms.Button();
+            this.complete2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // abbrOrderId
@@ -257,26 +257,26 @@
             this.remainType.TabIndex = 18;
             this.remainType.Text = "분 남음";
             // 
-            // button1
+            // complete1
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(354, 17);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(106, 36);
-            this.button1.TabIndex = 19;
-            this.button1.Text = "포장완료알림";
-            this.button1.UseVisualStyleBackColor = true;
+            this.complete1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.complete1.Location = new System.Drawing.Point(354, 17);
+            this.complete1.Name = "complete1";
+            this.complete1.Size = new System.Drawing.Size(106, 36);
+            this.complete1.TabIndex = 19;
+            this.complete1.Text = "포장완료알림";
+            this.complete1.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // complete2
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.button2.Location = new System.Drawing.Point(468, 17);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 36);
-            this.button2.TabIndex = 20;
-            this.button2.Text = "전달완료";
-            this.button2.UseVisualStyleBackColor = false;
+            this.complete2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.complete2.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.complete2.Location = new System.Drawing.Point(468, 17);
+            this.complete2.Name = "complete2";
+            this.complete2.Size = new System.Drawing.Size(75, 36);
+            this.complete2.TabIndex = 20;
+            this.complete2.Text = "전달완료";
+            this.complete2.UseVisualStyleBackColor = false;
             // 
             // Order_Item
             // 
@@ -284,8 +284,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Azure;
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.complete2);
+            this.Controls.Add(this.complete1);
             this.Controls.Add(this.remainType);
             this.Controls.Add(this.remainingTime);
             this.Controls.Add(this.label7);
@@ -335,7 +335,7 @@
         internal System.Windows.Forms.Label label4;
         internal System.Windows.Forms.Label label6;
         internal System.Windows.Forms.Label label7;
-        internal System.Windows.Forms.Button button1;
-        internal System.Windows.Forms.Button button2;
+        internal System.Windows.Forms.Button complete1;
+        internal System.Windows.Forms.Button complete2;
     }
 }
