@@ -49,6 +49,7 @@
             this.remainType = new System.Windows.Forms.Label();
             this.complete1 = new System.Windows.Forms.Button();
             this.complete2 = new System.Windows.Forms.Button();
+            this.menulist = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // abbrOrderId
@@ -278,12 +279,22 @@
             this.complete2.Text = "전달완료";
             this.complete2.UseVisualStyleBackColor = false;
             // 
+            // menulist
+            // 
+            this.menulist.AutoSize = true;
+            this.menulist.Location = new System.Drawing.Point(147, 62);
+            this.menulist.Name = "menulist";
+            this.menulist.Size = new System.Drawing.Size(55, 18);
+            this.menulist.TabIndex = 21;
+            this.menulist.Text = "label3";
+            // 
             // Order_Item
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Azure;
+            this.Controls.Add(this.menulist);
             this.Controls.Add(this.complete2);
             this.Controls.Add(this.complete1);
             this.Controls.Add(this.remainType);
@@ -337,5 +348,6 @@
         internal System.Windows.Forms.Label label7;
         internal System.Windows.Forms.Button complete1;
         internal System.Windows.Forms.Button complete2;
+        internal System.Windows.Forms.Label menulist;
     }
 }

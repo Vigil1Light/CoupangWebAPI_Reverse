@@ -330,7 +330,21 @@ namespace Coupang
                                         o_item.O_status.Text = x["status"] != null ? x["status"].ToString() : "...";
                                         o_item.O_orderServiceType.Text = x["orderServiceType"] != null ? x["orderServiceType"].ToString() : "...";
 
+                                        List<string> options = new List<string>();
+                                        string menutext = "";
+                                        JToken menus = x["items"];
+                                        int count = 0;
+                                        foreach (var menu in menus)
+                                        {
+                                            count++;
+                                            foreach (var item in menu["itemOptions"])
+                                            {
+                                                options.Add(item["optionName"].ToString());
+                                            }
 
+                                            menutext = string.Format("[메뉴 {0}개] {1}원·{2}({3})*{4}\n", count, menu["price"].ToString(), menu["name"].ToString(), string.Join(", ", options), menu["quantity"].ToString(), menu["quantity"].ToString());
+                                            o_item.menulist.Text = menutext;
+                                        }
                                         o_item.remainingTime.Text = (Math.Abs(int.Parse(x["state"]["preparationRemainingTime"].ToString())) / 60).ToString();
                                         if(x["state"]["statusText"].ToString() == "Ready")
                                         {
@@ -342,6 +356,7 @@ namespace Coupang
                                             o_item.label4.Visible = false;
                                             o_item.pickupTime.Visible = false;
                                             o_item.label6.Visible = false;
+                                            o_item.note.Text = "가까운 배달파트너를 찾고 있어요";
                                         }
                                         else if (x["state"]["courierStatus"].ToString() == "COURIER_ACCEPTED" || x["state"]["statusText"].ToString() == "Ready")
                                         {
@@ -384,7 +399,7 @@ namespace Coupang
                                     }
 
                                     o_item.pickupTime.Text = x["state"]["estimatedPickUpTime"].ToString();
-                                    if(int.Parse(x["state"]["preparationRemainingTime"].ToString()) > 0)
+                                    if(int.Parse(x["state"]["preparationRemainingTime"].ToString()) >= 0)
                                     {
                                         if(int.Parse(x["state"]["preparationRemainingTime"].ToString())/60 < 4)
                                         {
@@ -524,17 +539,17 @@ namespace Coupang
             item.orderAssignStatus.Visible = state;
             item.label2.Visible = state;
             item.statusText.Visible = state;
-            item.label4.Visible = state;
-            item.label6.Visible = state;
             item.label7.Visible = state;
             item.orderPrepareStatus.Visible = state;
-            item.pickupTime.Visible = state;
             item.remainingTime.Visible = state;
             item.remainType.Visible = state;
             if(!state)
             {
                 item.complete1.Visible = state;
                 item.complete2.Visible = state;
+                item.label4.Visible = state;
+                item.label6.Visible = state;
+                item.pickupTime.Visible = state;
             }  
         }
 
