@@ -342,8 +342,12 @@ namespace Coupang
                                                 options.Add(item["optionName"].ToString());
                                             }
 
-                                            menutext = string.Format("[메뉴 {0}개] {1}원·{2}({3})*{4}\n", count, menu["price"].ToString(), menu["name"].ToString(), string.Join(", ", options), menu["quantity"].ToString(), menu["quantity"].ToString());
-                                            o_item.menulist.Text = menutext;
+                                            menutext += string.Format("{0}원·{1}({2})*{3}\n", menu["unitSalePrice"].ToString(), menu["name"].ToString(), string.Join(", ", options), menu["quantity"].ToString()); 
+                                        }
+                                        o_item.menulist.Text = string.Format("[메뉴 {0}개] ", count) + menutext;
+                                        if(o_item.menulist.Text.Length > 40)
+                                        {
+                                            o_item.menulist.Text = o_item.menulist.Text.Substring(0,35) + "..." + o_item.menulist.Text.Substring(o_item.menulist.Text.Length - 5, 5);
                                         }
                                         o_item.remainingTime.Text = (Math.Abs(int.Parse(x["state"]["preparationRemainingTime"].ToString())) / 60).ToString();
                                         if(x["state"]["statusText"].ToString() == "Ready")
