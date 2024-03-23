@@ -30,7 +30,6 @@ namespace Coupang
 
         private void StoreList_SelectedValueChanged(object sender, EventArgs e)
         {
-            storeList.Items[0] = "Select Stores";
             ShowSelectedStoreInfo();
             GetOrder(Order_Type.COMPLETED, FromDate.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), ToDate.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"));
         }
@@ -44,10 +43,9 @@ namespace Coupang
             }
             if (count == storeList.CheckBoxItems.Count - 1 || count == 0)
             {
-                storeList.Items[0] = string.Format("전체매장 선택됨");
-                for (int i = 1; i < storeList.CheckBoxItems.Count; i++)
+                for (int j = 1; j < storeList.CheckBoxItems.Count; j++)
                 {
-                    storeList.CheckBoxItems[i].Checked = true;
+                    storeList.CheckBoxItems[j].Checked = true;
                 }
             }
             else
@@ -70,6 +68,7 @@ namespace Coupang
         #region Store Control 
         public void Get_stores()
         {
+
             this.tabControl1.Enabled = false;
 
             Thread th = new Thread(new ThreadStart(() =>
@@ -215,7 +214,7 @@ namespace Coupang
             if (_order_type == Order_Type.COMPLETED)
             {
                 int count = 0;
-                for(int i = 1; i < storeList.CheckBoxItems.Count; i++)
+                for (int i = 1; i < storeList.CheckBoxItems.Count; i++)
                 {
                     if (storeList.CheckBoxItems[i].Checked == true)
                     {
