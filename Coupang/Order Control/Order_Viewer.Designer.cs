@@ -42,6 +42,8 @@
             this.customerPhone = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.riderPhone = new System.Windows.Forms.Label();
+            this.quantity = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -82,9 +84,9 @@
             // Total
             // 
             this.Total.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Total.Location = new System.Drawing.Point(83, 389);
+            this.Total.Location = new System.Drawing.Point(79, 389);
             this.Total.Name = "Total";
-            this.Total.Size = new System.Drawing.Size(76, 18);
+            this.Total.Size = new System.Drawing.Size(61, 18);
             this.Total.TabIndex = 11;
             this.Total.Text = "...";
             this.Total.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -133,7 +135,7 @@
             // 
             // Order_Control
             // 
-            this.Order_Control.Location = new System.Drawing.Point(127, 423);
+            this.Order_Control.Location = new System.Drawing.Point(127, 428);
             this.Order_Control.Name = "Order_Control";
             this.Order_Control.Size = new System.Drawing.Size(369, 62);
             this.Order_Control.TabIndex = 17;
@@ -141,7 +143,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(165, 389);
+            this.label2.Location = new System.Drawing.Point(167, 389);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 18);
             this.label2.TabIndex = 18;
@@ -150,7 +152,7 @@
             // customerPhone
             // 
             this.customerPhone.AutoSize = true;
-            this.customerPhone.Location = new System.Drawing.Point(239, 389);
+            this.customerPhone.Location = new System.Drawing.Point(241, 389);
             this.customerPhone.Name = "customerPhone";
             this.customerPhone.Size = new System.Drawing.Size(0, 18);
             this.customerPhone.TabIndex = 19;
@@ -158,7 +160,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(387, 389);
+            this.label3.Location = new System.Drawing.Point(389, 389);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(73, 18);
             this.label3.TabIndex = 20;
@@ -167,16 +169,35 @@
             // riderPhone
             // 
             this.riderPhone.AutoSize = true;
-            this.riderPhone.Location = new System.Drawing.Point(461, 389);
+            this.riderPhone.Location = new System.Drawing.Point(463, 389);
             this.riderPhone.Name = "riderPhone";
             this.riderPhone.Size = new System.Drawing.Size(0, 18);
             this.riderPhone.TabIndex = 21;
+            // 
+            // quantity
+            // 
+            this.quantity.AutoSize = true;
+            this.quantity.Location = new System.Drawing.Point(79, 409);
+            this.quantity.Name = "quantity";
+            this.quantity.Size = new System.Drawing.Size(0, 18);
+            this.quantity.TabIndex = 0;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(17, 409);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(60, 18);
+            this.label5.TabIndex = 22;
+            this.label5.Text = "전체수량";
             // 
             // Order_Viewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(623, 497);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.quantity);
             this.Controls.Add(this.riderPhone);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.customerPhone);
@@ -220,5 +241,7 @@
         internal System.Windows.Forms.Label customerPhone;
         private System.Windows.Forms.Label label3;
         internal System.Windows.Forms.Label riderPhone;
+        internal System.Windows.Forms.Label quantity;
+        private System.Windows.Forms.Label label5;
     }
 }

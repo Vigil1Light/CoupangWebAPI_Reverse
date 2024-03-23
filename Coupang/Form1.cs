@@ -576,12 +576,26 @@ namespace Coupang
                             if (tx1.Result.StatusCode == System.Net.HttpStatusCode.OK)
                             {
                                 JToken r = Helper_Class.Json_Responce(tx1.Result.Content.ToString());
-                                viewer.customerPhone.Text = r["content"]["safeNumber"].ToString();
+                                try
+                                {
+                                    viewer.customerPhone.Text = r["content"]["safeNumber"].ToString();
+                                }
+                                catch(Exception)
+                                {
+                                    viewer.customerPhone.Text = "없음";
+                                }
                             }
                             if (tx2.Result.StatusCode == System.Net.HttpStatusCode.OK)
                             {
                                 JToken r = Helper_Class.Json_Responce(tx2.Result.Content.ToString());
-                                viewer.riderPhone.Text = r["content"]["safeNumber"].ToString();
+                                try
+                                {
+                                    viewer.riderPhone.Text = r["content"]["safeNumber"].ToString();
+                                }
+                                catch (Exception) 
+                                {
+                                    viewer.riderPhone.Text = "없음";
+                                }
                             }
                             viewer.Total.Text = o["content"]["salePrice"].ToString();
                             viewer.order_ID = o["content"]["orderId"].ToString();
@@ -595,7 +609,7 @@ namespace Coupang
                             viewer.customerOrderCount.Text = o["content"]["customerOrderCount"] != null ? o["content"]["customerOrderCount"].ToString() : "...";
 
                             viewer.Order_Time.Text = o["content"]["orderedAt"]["dateTime"] != null ? Helper_Class.From_Unix_Timestamp(double.Parse(o["content"]["orderedAt"]["dateTime"].ToString())).ToString("hh:mm tt") : "...";
-
+                            int quantity = 0;
                             foreach (JToken I in o["content"]["items"])
                             {
                                 FlowLayoutPanel Items = new FlowLayoutPanel();
@@ -634,10 +648,9 @@ namespace Coupang
                                 Items.AutoSizeMode = AutoSizeMode.GrowAndShrink;
 
                                 viewer.Order_Items.Controls.Add(Items);
+                                quantity++;
                             }
-
-
-
+                            viewer.quantity.Text = quantity.ToString();
                             viewer.Show((Form1)Application.OpenForms["Form1"]);
                         }
 
