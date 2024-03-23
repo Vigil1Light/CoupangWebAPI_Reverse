@@ -368,6 +368,8 @@ namespace Coupang
                                         }
                                         else if (x["state"]["courierStatus"].ToString() == "COURIER_ARRIVED")
                                         {
+                                            o_item.orderAssignStatus.Checked = true;
+                                            o_item.label1.Text = "배정완료";
                                             o_item.orderPrepareStatus.Checked = true;
                                             o_item.statusText.Text = "매장도착";
                                             o_item.remainingTime.Text = "0";
