@@ -38,6 +38,7 @@
             this.Order_Time = new System.Windows.Forms.Label();
             this.O_status = new System.Windows.Forms.Label();
             this.Order_Control = new System.Windows.Forms.FlowLayoutPanel();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -77,10 +78,10 @@
             // 
             // Total
             // 
-            this.Total.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Total.Location = new System.Drawing.Point(401, 389);
+            this.Total.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Total.Location = new System.Drawing.Point(83, 389);
             this.Total.Name = "Total";
-            this.Total.Size = new System.Drawing.Size(205, 18);
+            this.Total.Size = new System.Drawing.Size(116, 18);
             this.Total.TabIndex = 11;
             this.Total.Text = "...";
             this.Total.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -134,11 +135,21 @@
             this.Order_Control.Size = new System.Drawing.Size(369, 62);
             this.Order_Control.TabIndex = 17;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(225, 389);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(55, 18);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "label2";
+            // 
             // Order_Viewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(623, 497);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.Order_Control);
             this.Controls.Add(this.O_status);
             this.Controls.Add(this.Order_Time);
@@ -174,5 +185,6 @@
         internal System.Windows.Forms.Label Order_Time;
         internal System.Windows.Forms.Label O_status;
         private System.Windows.Forms.FlowLayoutPanel Order_Control;
+        private System.Windows.Forms.Label label2;
     }
 }

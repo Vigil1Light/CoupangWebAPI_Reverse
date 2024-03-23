@@ -354,6 +354,7 @@ namespace Coupang
                                         {
                                             o_item.complete1.Enabled = false;
                                             o_item.complete1.Text = "배달준비완료";
+                                            o_item.remainingTime.Text = "0";
                                         }
                                         if (x["state"]["courierStatus"].ToString() == "COURIER_ASSIGNING")
                                         {
@@ -581,7 +582,7 @@ namespace Coupang
                         {
                             Order_Viewer viewer = new Order_Viewer();
 
-                            viewer.Total.Text = o["content"]["totalAmount"].ToString();
+                            viewer.Total.Text = o["content"]["salePrice"].ToString();
                             viewer.order_ID = o["content"]["orderId"].ToString();
                             viewer.orderServiceType = o["content"]["orderServiceType"].ToString();
                             viewer.store_ID = o["content"]["storeId"].ToString();
