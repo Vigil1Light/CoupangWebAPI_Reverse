@@ -304,13 +304,43 @@ namespace Coupang
 
                                 foreach (JToken x in o["content"]["content"])
                                 {
-
-
-
                                     Order_Item o_item = new Order_Item();
                                     o_item.Click += (ss, ee) => { Get_Order_Details(ss, ee, o_item.StoreID, o_item.orderId); };
                                     o_item.complete1.Click += (ss, ee) => { Packaging_Complete_Notify(ss, ee, o_item.StoreID, o_item.orderId); };
                                     o_item.complete2.Click += (ss, ee) => { CompleteDelivery(ss, ee, o_item.StoreID, o_item.orderId); };
+                                    List<string> options = new List<string>();
+                                    string menutext = "";
+                                    JToken menus = x["items"];
+                                    int count = 0;
+                                    foreach (var menu in menus)
+                                    {
+                                        count++;
+                                        foreach (var item in menu["itemOptions"])
+                                        {
+                                            options.Add(item["optionName"].ToString());
+                                        }
+
+                                        menutext += string.Format("{0}원·{1}({2})*{3}\n", menu["unitSalePrice"].ToString(), menu["name"].ToString(), string.Join(", ", options), menu["quantity"].ToString());
+                                    }
+                                    o_item.menulist.Text = string.Format("[메뉴 {0}개] ", count) + menutext;
+                                    if (o_item.menulist.Text.Length > 40)
+                                    {
+                                        o_item.menulist.Text = o_item.menulist.Text.Substring(0, 35) + "..." + o_item.menulist.Text.Substring(o_item.menulist.Text.Length - 5, 5);
+                                    }
+
+                                    o_item.StoreID = x["storeId"].ToString();
+                                    o_item.orderId = x["orderId"].ToString();
+
+                                    o_item.abbrOrderId.Text = x["abbrOrderId"] != null ? x["abbrOrderId"].ToString() : "...";
+                                    o_item.Order_Time.Text = x["orderedAt"]["dateTime"] != null ? Helper_Class.From_Unix_Timestamp(double.Parse(x["orderedAt"]["dateTime"].ToString())).ToString("hh:mm tt") : "...";
+                                    o_item.note.Text = x["note"] != null ? x["note"].ToString() : "...";
+                                    o_item.Size = new Size(Order_Details_pan.Width - 24, o_item.Height);
+
+                                    o_item.O_status.Text = x["status"] != null ? x["status"].ToString() : "...";
+                                    o_item.O_orderServiceType.Text = x["orderServiceType"] != null ? x["orderServiceType"].ToString() : "...";
+
+                                    o_item.remainingTime.Text = (Math.Abs(int.Parse(x["state"]["preparationRemainingTime"].ToString())) / 60).ToString();
+
                                     if (x["orderServiceType"].ToString() == "DELIVERY")
                                     {
                                         o_item.label1.Text = "배정중";
@@ -318,38 +348,7 @@ namespace Coupang
                                         o_item.label4.Text = "배달 파트너";
                                         o_item.complete2.Visible = false;
                                         o_item.complete1.Text = "준비완료";
-
-                                        o_item.StoreID = x["storeId"].ToString();
-                                        o_item.orderId = x["orderId"].ToString();
-
-                                        o_item.abbrOrderId.Text = x["abbrOrderId"] != null ? x["abbrOrderId"].ToString() : "...";
-                                        o_item.Order_Time.Text = x["orderedAt"]["dateTime"] != null ? Helper_Class.From_Unix_Timestamp(double.Parse(x["orderedAt"]["dateTime"].ToString())).ToString("hh:mm tt") : "...";
-                                        o_item.note.Text = x["note"] != null ? x["note"].ToString() : "...";
-                                        o_item.Size = new Size(Order_Details_pan.Width - 24, o_item.Height);
-
-                                        o_item.O_status.Text = x["status"] != null ? x["status"].ToString() : "...";
-                                        o_item.O_orderServiceType.Text = x["orderServiceType"] != null ? x["orderServiceType"].ToString() : "...";
-
-                                        List<string> options = new List<string>();
-                                        string menutext = "";
-                                        JToken menus = x["items"];
-                                        int count = 0;
-                                        foreach (var menu in menus)
-                                        {
-                                            count++;
-                                            foreach (var item in menu["itemOptions"])
-                                            {
-                                                options.Add(item["optionName"].ToString());
-                                            }
-
-                                            menutext += string.Format("{0}원·{1}({2})*{3}\n", menu["unitSalePrice"].ToString(), menu["name"].ToString(), string.Join(", ", options), menu["quantity"].ToString()); 
-                                        }
-                                        o_item.menulist.Text = string.Format("[메뉴 {0}개] ", count) + menutext;
-                                        if(o_item.menulist.Text.Length > 40)
-                                        {
-                                            o_item.menulist.Text = o_item.menulist.Text.Substring(0,35) + "..." + o_item.menulist.Text.Substring(o_item.menulist.Text.Length - 5, 5);
-                                        }
-                                        o_item.remainingTime.Text = (Math.Abs(int.Parse(x["state"]["preparationRemainingTime"].ToString())) / 60).ToString();
+                       
                                         if(x["state"]["statusText"].ToString() == "Ready")
                                         {
                                             o_item.complete1.Enabled = false;
@@ -361,7 +360,6 @@ namespace Coupang
                                             o_item.label4.Visible = false;
                                             o_item.pickupTime.Visible = false;
                                             o_item.label6.Visible = false;
-                                            o_item.note.Text = "가까운 배달파트너를 찾고 있어요";
                                         }
                                         else if (x["state"]["courierStatus"].ToString() == "COURIER_ACCEPTED" || x["state"]["statusText"].ToString() == "Ready")
                                         {
@@ -377,19 +375,7 @@ namespace Coupang
                                     }
                                     else
                                     {
-                                        o_item.StoreID = x["storeId"].ToString();
-                                        o_item.orderId = x["orderId"].ToString();
 
-                                        o_item.abbrOrderId.Text = x["abbrOrderId"] != null ? x["abbrOrderId"].ToString() : "...";
-                                        o_item.Order_Time.Text = x["orderedAt"]["dateTime"] != null ? Helper_Class.From_Unix_Timestamp(double.Parse(x["orderedAt"]["dateTime"].ToString())).ToString("hh:mm tt") : "...";
-                                        o_item.note.Text = x["note"] != null ? x["note"].ToString() : "...";
-                                        o_item.Size = new Size(Order_Details_pan.Width - 24, o_item.Height);
-
-                                        o_item.O_status.Text = x["status"] != null ? x["status"].ToString() : "...";
-                                        o_item.O_orderServiceType.Text = x["orderServiceType"] != null ? x["orderServiceType"].ToString() : "...";
-
-
-                                        o_item.remainingTime.Text = (Math.Abs(int.Parse(x["state"]["preparationRemainingTime"].ToString())) / 60).ToString();
                                         if (x["state"]["statusText"].ToString() == "Assigned" || x["state"]["statusText"].ToString() == "Ready")
                                         {
                                             o_item.orderAssignStatus.Checked = true;
@@ -565,8 +551,12 @@ namespace Coupang
             Thread th = new Thread(new ThreadStart(() =>
             {
                 Task<IRestResponse> tx = Task.Run(() => Helper_Class.Send_Request($"https://pos-api.coupang.com/api/v1/stores/{StoreID}/orders/{orderId}", Method.GET));
+                Task<IRestResponse> tx1 = Task.Run(() => Helper_Class.Send_Request($"https://pos-api.coupang.com/api/v1/safe-number/{StoreID}/orders/{orderId}/customer", Method.GET));
+                Task<IRestResponse> tx2 = Task.Run(() => Helper_Class.Send_Request($"https://pos-api.coupang.com/api/v1/safe-number/{StoreID}/orders/{orderId}/courier", Method.GET));
                 //Task<IRestResponse> tx = Getrestaurants().RunSynchronously();
                 tx.Wait();
+                tx1.Wait();
+                tx2.Wait();
                 this.Invoke(new Action(() => {
 
                     if (!string.IsNullOrEmpty(tx.Result.Content))
@@ -581,7 +571,16 @@ namespace Coupang
                         if (tx.Result.StatusCode == System.Net.HttpStatusCode.OK)
                         {
                             Order_Viewer viewer = new Order_Viewer();
-
+                            if (tx1.Result.StatusCode == System.Net.HttpStatusCode.OK)
+                            {
+                                JToken r = Helper_Class.Json_Responce(tx1.Result.Content.ToString());
+                                viewer.customerPhone.Text = r["content"]["safeNumber"].ToString();
+                            }
+                            if (tx2.Result.StatusCode == System.Net.HttpStatusCode.OK)
+                            {
+                                JToken r = Helper_Class.Json_Responce(tx2.Result.Content.ToString());
+                                viewer.riderPhone.Text = r["content"]["safeNumber"].ToString();
+                            }
                             viewer.Total.Text = o["content"]["salePrice"].ToString();
                             viewer.order_ID = o["content"]["orderId"].ToString();
                             viewer.orderServiceType = o["content"]["orderServiceType"].ToString();
@@ -639,6 +638,7 @@ namespace Coupang
 
                             viewer.Show((Form1)Application.OpenForms["Form1"]);
                         }
+
                     }
 
                 }));

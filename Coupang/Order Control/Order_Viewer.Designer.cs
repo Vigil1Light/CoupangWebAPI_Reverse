@@ -39,6 +39,9 @@
             this.O_status = new System.Windows.Forms.Label();
             this.Order_Control = new System.Windows.Forms.FlowLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
+            this.customerPhone = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.riderPhone = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -81,10 +84,10 @@
             this.Total.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Total.Location = new System.Drawing.Point(83, 389);
             this.Total.Name = "Total";
-            this.Total.Size = new System.Drawing.Size(116, 18);
+            this.Total.Size = new System.Drawing.Size(76, 18);
             this.Total.TabIndex = 11;
             this.Total.Text = "...";
-            this.Total.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.Total.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // totalAmount
             // 
@@ -138,17 +141,45 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(225, 389);
+            this.label2.Location = new System.Drawing.Point(165, 389);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 18);
+            this.label2.Size = new System.Drawing.Size(73, 18);
             this.label2.TabIndex = 18;
-            this.label2.Text = "label2";
+            this.label2.Text = "고객련락처";
+            // 
+            // customerPhone
+            // 
+            this.customerPhone.AutoSize = true;
+            this.customerPhone.Location = new System.Drawing.Point(239, 389);
+            this.customerPhone.Name = "customerPhone";
+            this.customerPhone.Size = new System.Drawing.Size(0, 18);
+            this.customerPhone.TabIndex = 19;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(387, 389);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(73, 18);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "배달련락처";
+            // 
+            // riderPhone
+            // 
+            this.riderPhone.AutoSize = true;
+            this.riderPhone.Location = new System.Drawing.Point(461, 389);
+            this.riderPhone.Name = "riderPhone";
+            this.riderPhone.Size = new System.Drawing.Size(0, 18);
+            this.riderPhone.TabIndex = 21;
             // 
             // Order_Viewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(623, 497);
+            this.Controls.Add(this.riderPhone);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.customerPhone);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Order_Control);
             this.Controls.Add(this.O_status);
@@ -186,5 +217,8 @@
         internal System.Windows.Forms.Label O_status;
         private System.Windows.Forms.FlowLayoutPanel Order_Control;
         private System.Windows.Forms.Label label2;
+        internal System.Windows.Forms.Label customerPhone;
+        private System.Windows.Forms.Label label3;
+        internal System.Windows.Forms.Label riderPhone;
     }
 }
