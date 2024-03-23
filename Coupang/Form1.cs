@@ -602,7 +602,7 @@ namespace Coupang
 
 
                                 Panel pn = new Panel() { Size = new Size(Items.Width, 25) };
-                                Label I_name = new Label() { Text = I["name"].ToString(), Location = new Point(16, 0) };
+                                Label I_name = new Label() { Text = I["name"].ToString(), Location = new Point(16, 0), Width = 300 };
                                 Label I_quantity = new Label() { Text = I["quantity"].ToString(), Location = new Point(350, 0) };
                                 Label I_subTotalPrice = new Label() { TextAlign = ContentAlignment.MiddleRight, Text = I["unitSalePrice"].ToString(), Location = new Point(466, 0) };
 
@@ -616,13 +616,13 @@ namespace Coupang
                                 {
                                     //MessageBox.Show("op");
                                     Panel pn1 = new Panel() { Size = new Size(Items.Width, 25) };
-                                    Label I_optionName = new Label() { Text = I_options["optionName"].ToString(), Location = new Point(30, 0) };
-                                    //Label I_optionQuantity = new Label() { Text = I_options["optionQuantity"].ToString(), Location = new Point(350, 0) };
+                                    Label I_optionName = new Label() { Text = I_options["optionName"].ToString(), Location = new Point(30, 0), Width = 300};
+                                    Label I_optionQuantity = new Label() { Text = I_options["optionQuantity"].ToString(), Location = new Point(350, 0) };
                                     Label I_optionPrice = new Label() { TextAlign = ContentAlignment.MiddleRight, Text = "+" + I_options["optionPrice"].ToString(), Location = new Point(466, 0) };
 
 
                                     pn1.Controls.Add(I_optionName);
-                                    //pn1.Controls.Add(I_optionQuantity);
+                                    pn1.Controls.Add(I_optionQuantity);
                                     pn1.Controls.Add(I_optionPrice);
 
                                     Items.Controls.Add(pn1);
