@@ -417,6 +417,9 @@ namespace Coupang
                                         case "CANCELLED":
                                             o_item.O_status.ForeColor = Color.DarkOrange;
                                             break;
+                                        case "PICKED_UP":
+                                            o_item.O_status.Text = "Delivering";
+                                            break;
                                     }
                                     if (_order_type == Order_Type.COMPLETED)
                                     {
